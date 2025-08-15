@@ -13,12 +13,13 @@ import jakarta.persistence.Id;
 public class Tarefa {
     
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    // private = não posso acessar esse atributo fora da classe, outros tipos também usados: public e protected
+    // estrutura java: primeiro o tipo da variavel, depois o nome da variavel
     private Long id;
     private String titulo;
     private String descricao;
     private String responsavel;
-
     private LocalDate dataCriacao = LocalDate.now();
     private LocalDate dataLimite;
 
@@ -27,8 +28,6 @@ public class Tarefa {
 
     @Enumerated(EnumType.STRING)
     private Prioridade prioridade;
-    
-
 
     public Status getStatus() {
         return status;
@@ -77,8 +76,10 @@ public class Tarefa {
     }
     public void setDataLimite(LocalDate dataLimite) {
         this.dataLimite = dataLimite;
-    } 
+    }
+
+
+
+
     
-
-
 }

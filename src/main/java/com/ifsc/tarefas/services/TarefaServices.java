@@ -59,7 +59,7 @@ public class TarefaServices {
 
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Tarefa> deletarTarefa(@PathVariable Long id) {
-        if (!tarefaRepository.existsById(id)){
+        if (!tarefaRepository.existsById(id)){//verifica se a tarefa existe no db - !:negação
             return ResponseEntity.notFound().build();
         }
         tarefaRepository.deleteById(id);
