@@ -9,7 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
-@Entity //entidade anotação
+@Entity //entidade anotação - é uma tabela no banco de dados
 public class Tarefa {
     
     @Id
