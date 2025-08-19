@@ -1,13 +1,19 @@
 package com.ifsc.tarefas.model;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
+
 
 @Entity //entidade anotação - é uma tabela no banco de dados
 public class Tarefa {
@@ -16,12 +22,19 @@ public class Tarefa {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // private = não posso acessar esse atributo fora da classe, outros tipos também usados: public e protected
     // estrutura java: primeiro o tipo da variavel, depois o nome da variavel
-    private Long id;
+
+    @Column(name = "tarefa_id") // nome da coluna no banco de dados
+    private Long id;// nome do atributo no back
+
     private String titulo;
     private String descricao;
     private String responsavel;
     private LocalDate dataCriacao = LocalDate.now();
     private LocalDate dataLimite;
+
+    @OneToMany(fetch = FetchType.EAGER)//manyToOne - uma tarefa pode ter várias categorias, mas uma categoria só pode estar em uma tarefa | eager - quando eu buscar a tarefa, já traga as categorias dela
+    @JoinColumn(name = "categoria_id") // nome da coluna que vai armazenar o id da categoria na tabela tarefa
+    private List<Categoria> categoria; // pq a tarefa pode ter várias categorias
 
     @Enumerated(EnumType.STRING)
     private Status status;

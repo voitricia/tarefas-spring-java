@@ -39,8 +39,6 @@ public class CategoriaServices {
 
     @PutMapping("editar/{id}")
     public ResponseEntity<Categoria> editarCategoria(@PathVariable Long id, @RequestBody Categoria novaCategoria) {
-        
-        System.out.println("Editando categoria com ID: " + id);
         return categoriaRepository.findById(id).map(
             categoria -> {
                 categoria.setNome(novaCategoria.getNome());
