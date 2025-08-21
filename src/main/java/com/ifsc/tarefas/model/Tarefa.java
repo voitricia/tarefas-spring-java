@@ -32,9 +32,9 @@ public class Tarefa {
     private LocalDate dataCriacao = LocalDate.now();
     private LocalDate dataLimite;
 
-    @OneToMany(fetch = FetchType.EAGER)//manyToOne - uma tarefa pode ter várias categorias, mas uma categoria só pode estar em uma tarefa | eager - quando eu buscar a tarefa, já traga as categorias dela
-    @JoinColumn(name = "categoria_id") // nome da coluna que vai armazenar o id da categoria na tabela tarefa
-    private List<Categoria> categoria; // pq a tarefa pode ter várias categorias
+    //@OneToMany(fetch = FetchType.EAGER)//manyToOne - uma tarefa pode ter várias categorias, mas uma categoria só pode estar em uma tarefa | eager - quando eu buscar a tarefa, já traga as categorias dela
+    //@JoinColumn(name = "categoria_id") // nome da coluna que vai armazenar o id da categoria na tabela tarefa
+    //private List<Categoria> categoria; // pq a tarefa pode ter várias categorias
 
     @Enumerated(EnumType.STRING)
     private Status status;

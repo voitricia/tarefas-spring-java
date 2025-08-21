@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de tarefas</title>
+</head>
+<body>
+
+    <h1>TAREFAS CADASTRADAS</h1>
+    
+    <ul>
+        <li th:each="tarefa : ${tarefas}">
+            <strong th:text="${tarefa.titulo}">Título</strong> -
+            <span th:text="${tarefa.descricao}">Descrição</span> -
+            <span th:text="${tarefa.prioridade}">Prioridade</span> -
+            <span th:text="${tarefa.status}">Status</span> -
+            
+        
+        </li>
+    </ul>
+</body>
+</html>
