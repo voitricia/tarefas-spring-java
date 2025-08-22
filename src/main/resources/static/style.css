@@ -1,0 +1,168 @@
+/* Fonte fofa e limpa */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #fdfdfd;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #fce3ec, #e3f6f5, #fff6da);
+    background-size: 300% 300%;
+    animation: gradientShift 10s ease infinite;
+}
+
+/* Animação suave no fundo */
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Containers */
+form, .tarefas {
+    background: #ffffffcc;
+    backdrop-filter: blur(6px);
+    padding: 25px;
+    margin-top: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+    width: 420px;
+}
+
+/* Títulos */
+h1 {
+    text-align: center;
+    color: #7a6ad8;
+    margin-bottom: 20px;
+    font-size: 1.6rem;
+}
+
+/* Labels */
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Inputs, selects e textarea */
+input[type="text"],
+input[type="date"],
+textarea,
+select {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #e0d7ff;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    background: #fdfbff;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+textarea {
+    min-height: 80px;
+    resize: vertical;
+}
+
+/* Foco */
+input:focus,
+textarea:focus,
+select:focus {
+    outline: none;
+    border-color: #c1b5ff;
+    box-shadow: 0 0 8px rgba(175, 156, 255, 0.3);
+}
+
+/* Área dos botões alinhada à direita */
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+/* Botões */
+button {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease, background 0.3s;
+}
+
+button a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* Botão salvar */
+button[type="submit"] {
+    background: #b6e2d3;
+    color: #333;
+}
+
+button[type="submit"]:hover {
+    background: #98d8c5;
+    transform: scale(1.05);
+}
+
+/* Botão cancelar */
+button.cancelar {
+    background: #f7c8e0;
+}
+
+button.cancelar:hover {
+    background: #f3a6cd;
+    transform: scale(1.05);
+}
+.card-buttons {
+    display: flex;
+    justify-content: flex-end;  /* alinha à direita */
+    gap: 10px;                  /* espaço entre eles */
+    margin-top: 10px;
+}
+
+/* Lista de tarefas */
+.tarefas-card {
+    background: #fffdfd;
+    border: 2px solid #f5e1f7;
+    border-radius: 16px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0px 3px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.tarefas-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
+}
+
+/* Botões editar/excluir na lista */
+.tarefas-card button {
+    margin: 0; /* remove margens antigas */
+    padding: 8px 14px;}
+
+.tarefas-card button:first-of-type {
+    background: #d8c6f7;
+}
+
+.tarefas-card button:first-of-type:hover {
+    background: #b9a2f3;
+    transform: scale(1.05);
+}
+
+.tarefas-card button:last-of-type {
+    background: #f7b6c8;
+}
+
+.tarefas-card button:last-of-type:hover {
+    background: #f28aa8;
+    transform: scale(1.05);
+}
