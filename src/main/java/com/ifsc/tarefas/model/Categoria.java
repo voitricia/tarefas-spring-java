@@ -1,13 +1,14 @@
 package com.ifsc.tarefas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Categoria {
@@ -18,7 +19,8 @@ public class Categoria {
     private Long id;
     private String nome;
 
-    @ManyToOne(fetch = FetchType.EAGER) 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "categorias") //mapeado pela lista categorias na classe Tarefa
     @JoinColumn(name = "tarefa_id") 
     private Tarefa tarefa;
 
@@ -33,5 +35,11 @@ public class Categoria {
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public Tarefa getTarefa() {
+        return tarefa;
+    }
+    public void setTarefa(Tarefa tarefa) {
+        this.tarefa = tarefa;
     }
 }

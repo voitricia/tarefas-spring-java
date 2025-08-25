@@ -7,12 +7,12 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 
 
 @Entity //entidade anotação - é uma tabela no banco de dados
@@ -32,9 +32,15 @@ public class Tarefa {
     private LocalDate dataCriacao = LocalDate.now();
     private LocalDate dataLimite;
 
-    //@OneToMany(fetch = FetchType.EAGER)//manyToOne - uma tarefa pode ter várias categorias, mas uma categoria só pode estar em uma tarefa | eager - quando eu buscar a tarefa, já traga as categorias dela
-    //@JoinColumn(name = "categoria_id") // nome da coluna que vai armazenar o id da categoria na tabela tarefa
-    //private List<Categoria> categoria; // pq a tarefa pode ter várias categorias
+    @ManyToMany // relação de muitos para muitos
+    @JoinTable(
+        name = "tarefa_categoria",//tabela intermediária
+        joinColumns = @JoinColumn(name = "tarefa_id"),//atributo de um objeto que se junta com a tabela intermediária
+        inverseJoinColumns = @JoinColumn(name = "categoria_id") //atributo do outro objeto que se junta com a tabela intermediária
+    )
+    private List<Categoria> categorias;
+
+
 
     @Enumerated(EnumType.STRING)
     private Status status;
