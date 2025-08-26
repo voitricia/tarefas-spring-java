@@ -4,8 +4,12 @@ package com.ifsc.tarefas.services;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ifsc.tarefas.model.Categoria;
 import com.ifsc.tarefas.model.Tarefa;
+import com.ifsc.tarefas.repository.CategoriaRepository;
 import com.ifsc.tarefas.repository.TarefaRepository;
+
+import jakarta.transaction.Transactional;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,10 +27,13 @@ public class TarefaServices {
     
     // Injetando o repositório de tarefa pra usar no service e buscar coisas do db
     private final TarefaRepository tarefaRepository;
+    private final CategoriaRepository categoriaRepository;
     
-    public TarefaServices(TarefaRepository tarefaRepository) {
+    public TarefaServices(TarefaRepository tarefaRepository, CategoriaRepository categoriaRepository) {
         this.tarefaRepository = tarefaRepository;
+        this.categoriaRepository = categoriaRepository;
     }
+
 
     //anotação pra get - busca todas as tarefas
     @GetMapping("/buscar-todos")
@@ -65,4 +72,24 @@ public class TarefaServices {
         tarefaRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/{tarefaId}/associar-categoria/{categoriaId}")
+    @Transactional//garante que a operação de associação seja realizada dentro de uma transação
+    public ResponseEntity<Void> associarParaUmaCategoria(
+        @PathVariable Long tarefaId,
+        @PathVariable Long categoriaId
+    ) {
+        //pega a tarefa e a categoria pelo id
+        var tarefa = tarefaRepository.findById(tarefaId);
+        var categoria = categoriaRepository.findById(categoriaId);
+        //se a tarefa ou a categoria não existir, retorna 404
+        if (tarefa.isEmpty() || categoria.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        //se achar a tarefa e a categoria, adiciona a categoria na lista de categorias da tarefa
+        tarefa.get().getCategorias().add(categoria.get());
+        tarefaRepository.save(tarefa.get());
+        return ResponseEntity.ok().build();
+    }
+    
 }

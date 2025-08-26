@@ -1,168 +1,173 @@
-/* Fonte fofa e limpa */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #fdfdfd;
+/* Reset */
+* {
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #fce3ec, #e3f6f5, #fff6da);
-    background-size: 300% 300%;
-    animation: gradientShift 10s ease infinite;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
-/* Animação suave no fundo */
-@keyframes gradientShift {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
+/* Base */
+body {
+    background: #fdfcfb;
+    color: #444;
+    padding: 30px;
 }
 
 /* Containers */
-form, .tarefas {
-    background: #ffffffcc;
-    backdrop-filter: blur(6px);
-    padding: 25px;
-    margin-top: 40px;
-    border-radius: 20px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
-    width: 420px;
+.tarefas,
+form {
+    background: #ffffff;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 25px 35px;
+    border-radius: 14px;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
 }
 
 /* Títulos */
 h1 {
     text-align: center;
-    color: #7a6ad8;
-    margin-bottom: 20px;
-    font-size: 1.6rem;
+    margin-bottom: 25px;
+    font-size: 1.9rem;
+    color: #6d6875;
+    font-weight: 600;
 }
 
-/* Labels */
+/* === FORMULÁRIO === */
+form div {
+    margin-bottom: 18px;
+    display: flex;
+    flex-direction: column;
+}
+
 label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #555;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #6d6875;
 }
 
-/* Inputs, selects e textarea */
 input[type="text"],
 input[type="date"],
 textarea,
 select {
-    width: 100%;
     padding: 12px;
-    margin-bottom: 15px;
-    border: 2px solid #e0d7ff;
-    border-radius: 12px;
-    font-size: 0.95rem;
-    background: #fdfbff;
-    transition: all 0.3s ease;
-    box-sizing: border-box;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background: #fcfcfc;
+    transition: border 0.2s, box-shadow 0.2s;
 }
 
-textarea {
-    min-height: 80px;
-    resize: vertical;
-}
-
-/* Foco */
 input:focus,
 textarea:focus,
 select:focus {
+    border-color: #a3c4f3;
+    box-shadow: 0 0 6px rgba(163,196,243,0.5);
     outline: none;
-    border-color: #c1b5ff;
-    box-shadow: 0 0 8px rgba(175, 156, 255, 0.3);
-}
-
-/* Área dos botões alinhada à direita */
-.form-buttons {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
-    margin-top: 10px;
 }
 
 /* Botões */
 button {
     padding: 10px 18px;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
     cursor: pointer;
-    font-size: 0.9rem;
-    transition: transform 0.2s ease, background 0.3s;
+    transition: all 0.2s ease-in-out;
 }
 
-button a {
-    text-decoration: none;
-    color: inherit;
+/* Salvar */
+.form-buttons button[type="submit"] {
+    background: #a3c4f3;
+    color: #fff;
+    flex: 1;
+}
+
+.form-buttons button[type="submit"]:hover {
+    background: #799ed1;
+}
+
+/* Cancelar */
+.form-buttons button a {
     display: block;
+    color: #fff;
+    background: #cbb2fe;
+    padding: 10px 18px;
+    border-radius: 8px;
+    text-align: center;
 }
 
-/* Botão salvar */
-button[type="submit"] {
-    background: #b6e2d3;
-    color: #333;
+.form-buttons button a:hover {
+    background: #a78bfa;
 }
 
-button[type="submit"]:hover {
-    background: #98d8c5;
-    transform: scale(1.05);
-}
-
-/* Botão cancelar */
-button.cancelar {
-    background: #f7c8e0;
-}
-
-button.cancelar:hover {
-    background: #f3a6cd;
-    transform: scale(1.05);
-}
-.card-buttons {
+/* Botões juntos */
+.form-buttons {
     display: flex;
-    justify-content: flex-end;  /* alinha à direita */
-    gap: 10px;                  /* espaço entre eles */
+    gap: 15px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+/* === LISTA DE TAREFAS === */
+.tarefas-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 20px;
+}
+
+.tarefas-card {
+    background: #f8edeb;
+    padding: 18px 22px;
+    border-radius: 12px;
+    border: 1px solid #fcd5ce;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+/* Cabeçalho do card */
+.tarefas-card strong {
+    font-size: 1.1rem;
+    color: #4a4e69;
+    font-weight: 600;
+}
+
+/* Detalhes */
+.tarefas-card div span {
+    font-size: 0.95rem;
+    color: #555;
+}
+
+/* Metadados e ações */
+.tarefas-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-top: 10px;
 }
 
-/* Lista de tarefas */
-.tarefas-card {
-    background: #fffdfd;
-    border: 2px solid #f5e1f7;
-    border-radius: 16px;
-    padding: 15px;
-    margin-bottom: 15px;
-    box-shadow: 0px 3px 8px rgba(0,0,0,0.05);
-    transition: transform 0.2s ease, box-shadow 0.3s ease;
+/* Links */
+a {
+    text-decoration: none;
+    color: #84a59d;
+    font-weight: 600;
 }
 
-.tarefas-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0px 5px 12px rgba(0,0,0,0.1);
+a:hover {
+    color: #52796f;
 }
 
-/* Botões editar/excluir na lista */
+/* Botão excluir */
 .tarefas-card button {
-    margin: 0; /* remove margens antigas */
-    padding: 8px 14px;}
-
-.tarefas-card button:first-of-type {
-    background: #d8c6f7;
+    background: #f28482;
+    color: #fff;
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 0.9rem;
 }
 
-.tarefas-card button:first-of-type:hover {
-    background: #b9a2f3;
-    transform: scale(1.05);
-}
-
-.tarefas-card button:last-of-type {
-    background: #f7b6c8;
-}
-
-.tarefas-card button:last-of-type:hover {
-    background: #f28aa8;
-    transform: scale(1.05);
+.tarefas-card button:hover {
+    background: #e76f51;
 }

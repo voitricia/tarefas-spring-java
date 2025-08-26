@@ -1,7 +1,9 @@
 package com.ifsc.tarefas.model;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,7 +40,7 @@ public class Tarefa {
         joinColumns = @JoinColumn(name = "tarefa_id"),//atributo de um objeto que se junta com a tabela intermediária
         inverseJoinColumns = @JoinColumn(name = "categoria_id") //atributo do outro objeto que se junta com a tabela intermediária
     )
-    private List<Categoria> categorias;
+    private Set<Categoria> categorias = new HashSet<>();
 
 
 
@@ -96,9 +98,10 @@ public class Tarefa {
     public void setDataLimite(LocalDate dataLimite) {
         this.dataLimite = dataLimite;
     }
-
-
-
-
-    
+    public Set<Categoria> getCategorias() {
+        return categorias;
+    }
+    public void setCategorias(Set<Categoria> categorias) {
+        this.categorias = categorias;
+    }
 }

@@ -1,5 +1,8 @@
 package com.ifsc.tarefas.model;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
@@ -7,7 +10,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 
 @Entity
@@ -21,8 +23,7 @@ public class Categoria {
 
     @JsonIgnore
     @ManyToMany(mappedBy = "categorias") //mapeado pela lista categorias na classe Tarefa
-    @JoinColumn(name = "tarefa_id") 
-    private Tarefa tarefa;
+    private Set<Tarefa> tarefas = new HashSet<>();
 
     public Long getId() {
         return id;
@@ -33,13 +34,13 @@ public class Categoria {
     public String getNome() {
         return nome;
     }
+    public Set<Tarefa> getTarefas() {
+        return tarefas;
+    }
+    public void setTarefas(Set<Tarefa> tarefas) {
+        this.tarefas = tarefas;
+    }
     public void setNome(String nome) {
         this.nome = nome;
-    }
-    public Tarefa getTarefa() {
-        return tarefa;
-    }
-    public void setTarefa(Tarefa tarefa) {
-        this.tarefa = tarefa;
     }
 }

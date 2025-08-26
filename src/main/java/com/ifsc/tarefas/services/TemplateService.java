@@ -2,7 +2,6 @@ package com.ifsc.tarefas.services;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,12 +12,7 @@ import com.ifsc.tarefas.model.Status;
 import com.ifsc.tarefas.model.Tarefa;
 import com.ifsc.tarefas.repository.TarefaRepository;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-
-
 
 
 @Controller
@@ -35,15 +29,15 @@ public class TemplateService {
     //model serve para adicionar atributos que serão usados no template (o html)
     String listarTarefas(Model model) {
         model.addAttribute("tarefas", tarefaRepository.findAll());
-        return "lista";//vai dizer qual template vou usar
+        return "listar";//vai dizer qual template vou usar
     }
 
-    @GetMapping("/nova-tarefa") //página para criar uma nova tarefa
+    @GetMapping("/tarefa") //página para criar uma nova tarefa
     String novaTarefa(Model model) {
         model.addAttribute("tarefa", new Tarefa());
         model.addAttribute("prioridades", Prioridade.values());
         model.addAttribute("listaStatus", Status.values());
-        return "nova-tarefa";
+        return "tarefa";
     }
     
     @PostMapping("/salvar")//api que vai receber os dados do formulário
@@ -60,10 +54,22 @@ public class TemplateService {
         return "redirect:/tarefas/listar";
     }
 
-    @PostMapping("/deletar/{id}")
-    public String deletarTarefa(@PathVariable Long id, RedirectAttributes redirectAttributes) {
+    @PostMapping("{id}/excluir")
+    String excluir(@PathVariable Long id) {
         tarefaRepository.deleteById(id);
-        redirectAttributes.addFlashAttribute("mensagem", "Tarefa deletada com sucesso!");
-        return "redirect:/tarefas/listar";
+        return "redirect:/templates/listar";
     }
+
+    @GetMapping("{id}/editar")
+    String editar(@PathVariable Long id, Model model) {
+        var tarefa = tarefaRepository.findById(id).orElse(null);
+        if (tarefa == null) {
+            return "redirect:/templates/listar"; // Redireciona se a tarefa não for encontrada
+        }
+        model.addAttribute("tarefa", tarefa);
+        model.addAttribute("prioridades", Prioridade.values());
+        model.addAttribute("listaStatus", Status.values());
+        return "tarefa";
+    }
+    
 }
