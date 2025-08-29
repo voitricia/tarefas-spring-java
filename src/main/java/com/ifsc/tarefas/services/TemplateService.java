@@ -46,14 +46,6 @@ public class TemplateService {
         return "redirect:/templates/listar"; //redireciona para a página de listagem após salvar
     }
 
-    @PostMapping("/editar/{id}")
-    public String salvarEdicao(@PathVariable Long id, @ModelAttribute Tarefa tarefa, RedirectAttributes redirectAttributes) {
-        tarefa.setId(id);
-        tarefaRepository.save(tarefa);
-        redirectAttributes.addFlashAttribute("mensagem", "Tarefa atualizada com sucesso!");
-        return "redirect:/tarefas/listar";
-    }
-
     @PostMapping("{id}/excluir")
     String excluir(@PathVariable Long id) {
         tarefaRepository.deleteById(id);
@@ -62,10 +54,13 @@ public class TemplateService {
 
     @GetMapping("{id}/editar")
     String editar(@PathVariable Long id, Model model) {
+        // vai procurar tarefas pelo id, se n achar
         var tarefa = tarefaRepository.findById(id).orElse(null);
-        if (tarefa == null) {
-            return "redirect:/templates/listar"; // Redireciona se a tarefa não for encontrada
+        if(tarefa == null) {
+            // retornar para pagina inicial
+            return "redirect:/templates/listar";
         }
+        // adiciona a tarefa que vai ser editada e todo o resto ao template do formulario
         model.addAttribute("tarefa", tarefa);
         model.addAttribute("prioridades", Prioridade.values());
         model.addAttribute("listaStatus", Status.values());

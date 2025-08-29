@@ -1,173 +1,70 @@
-/* Reset */
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
 }
 
-/* Base */
+/* Fonte e cores gerais */
 body {
-    background: #fdfcfb;
-    color: #444;
-    padding: 30px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9fc; /* cinza claro pastel */
+    color: #333;
+    line-height: 1.6;
 }
 
-/* Containers */
-.tarefas,
-form {
-    background: #ffffff;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 25px 35px;
-    border-radius: 14px;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
-}
-
-/* Títulos */
-h1 {
-    text-align: center;
-    margin-bottom: 25px;
-    font-size: 1.9rem;
-    color: #6d6875;
-    font-weight: 600;
-}
-
-/* === FORMULÁRIO === */
-form div {
-    margin-bottom: 18px;
-    display: flex;
-    flex-direction: column;
-}
-
-label {
-    font-weight: 600;
-    margin-bottom: 6px;
-    color: #6d6875;
-}
-
-input[type="text"],
-input[type="date"],
-textarea,
-select {
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    font-size: 1rem;
-    background: #fcfcfc;
-    transition: border 0.2s, box-shadow 0.2s;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-    border-color: #a3c4f3;
-    box-shadow: 0 0 6px rgba(163,196,243,0.5);
-    outline: none;
-}
-
-/* Botões */
-button {
-    padding: 10px 18px;
-    border: none;
-    border-radius: 8px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-/* Salvar */
-.form-buttons button[type="submit"] {
-    background: #a3c4f3;
-    color: #fff;
-    flex: 1;
-}
-
-.form-buttons button[type="submit"]:hover {
-    background: #799ed1;
-}
-
-/* Cancelar */
-.form-buttons button a {
-    display: block;
-    color: #fff;
-    background: #cbb2fe;
-    padding: 10px 18px;
-    border-radius: 8px;
-    text-align: center;
-}
-
-.form-buttons button a:hover {
-    background: #a78bfa;
-}
-
-/* Botões juntos */
-.form-buttons {
-    display: flex;
-    gap: 15px;
-    justify-content: center;
-    margin-top: 20px;
-}
-
-/* === LISTA DE TAREFAS === */
-.tarefas-list {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    margin-top: 20px;
-}
-
-.tarefas-card {
-    background: #f8edeb;
-    padding: 18px 22px;
-    border-radius: 12px;
-    border: 1px solid #fcd5ce;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-}
-
-/* Cabeçalho do card */
-.tarefas-card strong {
-    font-size: 1.1rem;
-    color: #4a4e69;
-    font-weight: 600;
-}
-
-/* Detalhes */
-.tarefas-card div span {
-    font-size: 0.95rem;
-    color: #555;
-}
-
-/* Metadados e ações */
-.tarefas-card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 10px;
+/* Cabeçalhos */
+h1, h2, h3 {
+    color: #5d576b; /* lilás pastel */
 }
 
 /* Links */
 a {
+    color: #457b9d;
     text-decoration: none;
-    color: #84a59d;
-    font-weight: 600;
+    transition: 0.2s;
 }
 
 a:hover {
-    color: #52796f;
+    text-decoration: underline;
 }
 
-/* Botão excluir */
-.tarefas-card button {
-    background: #f28482;
-    color: #fff;
+/* Botões padrões */
+button {
     padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 0.9rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
 }
 
-.tarefas-card button:hover {
-    background: #e76f51;
+/* Botão primário */
+.btn-primary {
+    background-color: #4f8a8b;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #3d6c6d;
+}
+
+/* Botão de perigo (excluir, etc.) */
+.btn-danger {
+    background-color: #f28b82;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #d9534f;
+}
+
+/* Containers principais */
+.container {
+    max-width: 900px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
 }

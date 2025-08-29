@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Categoria</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" th:href="@{/css/categoria.css}">
+</head>
+
+<body>
+    <form th:action="@{/templates/categorias/salvar}" th:object="${categoria}" method="post">
+        <h1>Nova Categoria</h1>
+
+        <div>
+            <label>Nome</label>
+            <input th:field="*{nome}" type="text">
+        </div>
+
+        <div class="form-buttons">
+            <button type="submit">Salvar</button>
+            <button>
+                <a href="/templates/categorias/listar">Cancelar</a>
+            </button>
+        </div>
+    </form>
+</body>
+
+</html>
