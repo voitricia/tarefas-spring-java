@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/categorias") // Define padrão URL para o serviço de categorias
-
 public class CategoriaServices {
     
     private final CategoriaRepository categoriaRepository;

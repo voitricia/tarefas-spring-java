@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tarefas</title>
     <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="stylesheet" th:href="@{/listar.css}">
 </head>
 
 <body>
@@ -30,13 +29,14 @@
                 </div>
                 <div>
                     <span>
-                        <a href="@{'/templates/' + ${tarefa.id} + '/editar'}">Editar</a>
+                        <a th:href="@{/templates/{id}/editar(id=${tarefa.id})}" class="btn-editar">Editar</a>
                     </span>
                 </div>
                 <div>
                     <span>
-                        <form th:action="@{'/templates/' + ${tarefa.id} + '/excluir'}" method="post" >
-                        <button onclick="return confirm('Tem certeza que deseja excluir?')" type="submit">Excluir</button>
+                        <form th:action="@{'/templates/' + ${tarefa.id} + '/excluir'}" method="post">
+                            <button onclick="return confirm('Tem certeza que deseja excluir?')"
+                                type="submit">Excluir</button>
                         </form>
                     </span>
                 </div>

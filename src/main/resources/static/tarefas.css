@@ -1,83 +1,67 @@
-/* Container principal */
-.tarefas {
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 2rem;
-    background-color: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.08);
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-/* Cabeçalho */
-.tarefas h1 {
-    text-align: center;
-    font-size: 1.8rem;
-    color: #5d576b; /* lilás pastel */
-    margin-bottom: 2rem;
-    border-bottom: 2px solid #eac7c7;
-    padding-bottom: 0.5rem;
+/* Agrupar label e input em linha */
+form div {
+  display: flex;
+  flex-direction: column;
 }
 
-/* Lista de tarefas */
-.tarefas-list {
-    display: flex;
+label {
+  font-weight: 600;
+  margin-bottom: 0.4rem;
+  color: #2c3e50;
+}
+
+input, textarea, select {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid #dcdde1;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 100%;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Botões */
+.form-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+button {
+  padding: 0.6rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+button a {
+  color: white;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  form {
+    gap: 0.8rem;
+  }
+
+  .form-buttons {
     flex-direction: column;
-    gap: 1.2rem;
-}
+  }
 
-/* Cada card de tarefa */
-.tarefa-card {
-    background-color: #fdf6f0; /* fundo pêssego pastel */
-    padding: 1.2rem;
-    border-radius: 12px;
-    box-shadow: 0px 2px 6px rgba(0,0,0,0.05);
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-
-.tarefa-card:hover {
-    transform: scale(1.02);
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-}
-
-/* Título da tarefa */
-.tarefa-card strong {
-    font-size: 1.2rem;
-    color: #1d3557;
-    display: block;
-    margin-bottom: 0.5rem;
-}
-
-/* Descrição, prioridade e status */
-.tarefa-card p {
-    margin: 0.2rem 0;
-    color: #444;
-    font-size: 0.95rem;
-}
-
-/* Links (editar) */
-.tarefa-card a {
-    color: #457b9d;
-    text-decoration: none;
-    font-weight: bold;
-    margin-right: 1rem;
-}
-
-.tarefa-card a:hover {
-    text-decoration: underline;
-}
-
-/* Botão excluir */
-.tarefa-card button {
-    margin-top: 0.5rem;
-    background-color: #f4978e; /* salmão pastel */
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    padding: 0.6rem 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.tarefa-card button:hover {
-    background-color: #f08080;
+  button {
+    width: 100%;
+  }
 }

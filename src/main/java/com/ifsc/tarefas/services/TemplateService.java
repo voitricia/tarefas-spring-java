@@ -52,7 +52,7 @@ public class TemplateService {
         return "redirect:/templates/listar";
     }
 
-    @GetMapping("{id}/editar")
+    @GetMapping("/{id}/editar")
     String editar(@PathVariable Long id, Model model) {
         // vai procurar tarefas pelo id, se n achar
         var tarefa = tarefaRepository.findById(id).orElse(null);

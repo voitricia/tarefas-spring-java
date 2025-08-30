@@ -6,13 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Categoria</title>
     <link rel="stylesheet" th:href="@{/style.css}">
-    <link rel="stylesheet" th:href="@{/css/categoria.css}">
 </head>
 
 <body>
     <form th:action="@{/templates/categorias/salvar}" th:object="${categoria}" method="post">
         <h1>Nova Categoria</h1>
-
+        <input type="hidden" th:field="*{id}">
         <div>
             <label>Nome</label>
             <input th:field="*{nome}" type="text">
