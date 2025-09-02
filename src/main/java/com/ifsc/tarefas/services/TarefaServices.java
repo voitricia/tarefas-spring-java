@@ -4,7 +4,6 @@ package com.ifsc.tarefas.services;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ifsc.tarefas.model.Categoria;
 import com.ifsc.tarefas.model.Tarefa;
 import com.ifsc.tarefas.repository.CategoriaRepository;
 import com.ifsc.tarefas.repository.TarefaRepository;

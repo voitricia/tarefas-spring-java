@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciar Categoria</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+    <h1>Gerenciar Categoria para Tarefa</h1>
+    <div>
+        <p th:each="categoria : ${categorias}">
+            <span th:text="${categoria.nome}"></span>
+            <span th:text="${categoria.id}"></span>
+            <form th:action="@{'/templates/' + ${tarefa.id} + '/associar-categoria/' + ${categoria.id}}" method="post" style="display:inline;">
+                <button type="submit">Associar</button>
+            </form>
+        </p>
+</body>
+</html>
