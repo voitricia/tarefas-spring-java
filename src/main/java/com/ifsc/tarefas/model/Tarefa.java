@@ -15,6 +15,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.FutureOrPresent;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 
 @Entity //entidade anotação - é uma tabela no banco de dados
@@ -28,10 +32,20 @@ public class Tarefa {
     @Column(name = "tarefa_id") // nome da coluna no banco de dados
     private Long id;// nome do atributo no back
 
+    @NotBlank(message = "O título é obrigatório")
+    @Size(min = 3, max = 100, message = "O título deve ter entre 3 e 100 caracteres")
     private String titulo;
+
+    @Size(max = 500, message = "A descrição deve ter no máximo 500 caracteres")
     private String descricao;
+
+    @NotBlank(message = "O responsável é obrigatório")
+    @Size(min = 3, max = 100, message = "O nome do responsável deve ter entre 3 e 100 caracteres")
     private String responsavel;
+
     private LocalDate dataCriacao = LocalDate.now();
+
+    @FutureOrPresent(message = "A data limite deve ser hoje ou uma data futura")
     private LocalDate dataLimite;
 
     @ManyToMany // relação de muitos para muitos
@@ -40,14 +54,17 @@ public class Tarefa {
         joinColumns = @JoinColumn(name = "tarefa_id"),//atributo de um objeto que se junta com a tabela intermediária
         inverseJoinColumns = @JoinColumn(name = "categoria_id") //atributo do outro objeto que se junta com a tabela intermediária
     )
+    
     private Set<Categoria> categorias = new HashSet<>();
 
 
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "O status é obrigatório")
     private Status status;
 
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "A prioridade é obrigatória")
     private Prioridade prioridade;
 
     public Status getStatus() {

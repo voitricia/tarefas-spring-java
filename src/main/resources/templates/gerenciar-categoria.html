@@ -12,6 +12,9 @@
         <p th:each="categoria : ${categorias}">
             <span th:text="${categoria.nome}"></span>
             <span th:text="${categoria.id}"></span>
+            <div>
+                
+            </div>
             <form th:action="@{'/templates/' + ${tarefa.id} + '/associar-categoria/' + ${categoria.id}}" method="post" style="display:inline;">
                 <button type="submit">Associar</button>
             </form>
