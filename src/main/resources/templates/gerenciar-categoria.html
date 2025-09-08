@@ -1,21 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gerenciar categorias</title>
+    <title>Gerenciar Categorias</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-    <h1>Associar categorias para uma tarefa</h1>
-    <span th:text="${tarefa.titulo}"></span>
-    <span th:text="${tarefa.id}"></span>
-    <div>
-        <p th:each="categoria : ${categorias}">
-            <span th:text="${categoria.nome}"></span>
-            <span th:text="${categoria.id}"></span>
-
+    <form th:action="@{'/templates/' + ${tarefa.id} + '/salvar-associacao'}" method="post">
+        <h1>Associar Categorias</h1>
+        <p class="tarefa-titulo">
+            Gerenciando categorias para a tarefa: <strong th:text="${tarefa.titulo}">Título da Tarefa</strong>
         </p>
-    </div>
 
+        <div class="checkbox-list">
+            <div th:each="categoria : ${todasAsCategorias}" class="checkbox-item">
+                <input type="checkbox"
+                       th:id="'categoria-' + ${categoria.id}"
+                       th:value="${categoria.id}"
+                       name="categoriaIds"
+                       th:checked="${#lists.contains(tarefa.categorias, categoria)}">
+                <label th:for="'categoria-' + ${categoria.id}" th:text="${categoria.nome}">
+                    Nome da Categoria
+                </label>
+            </div>
+        </div>
+
+        <div class="form-buttons">
+            <a th:href="@{/templates/listar}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar Associações</button>
+        </div>
+    </form>
 </body>
 </html>

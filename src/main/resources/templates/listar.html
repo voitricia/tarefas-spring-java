@@ -17,65 +17,50 @@
         </div>
         <div class="card mb-4">
             <div class="card-header">
-                <h4> Filtros</h4>
+                <h4>Filtros</h4>
             </div>
             <div class="card-container">
-                <form th:action="@{/templates/listar}" method="get">
-                    <div class="row p-3">
-                        <div class="col-md-6">
-                            <input type="text" class="form-control" id="titulo" name="titulo" th:value="${titulo}"
-                                placeholder="Buscar pot título">
-                        </div>
-                    </div>
+                <form th:action="@{/templates/listar}" method="get" class="form-filtros">
+                    <input type="text" class="form-control" id="titulo" name="titulo" th:value="${titulo}"
+                        placeholder="Buscar por título...">
 
-                    <div class="row p-3">
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-primary">
-                                <i class="bi bi-search"></i> Pesquisar
-                            </button>
-                        </div>
-                        <div class="col-md-6">
-                            <button class="btn btn-danger">
-                                <i class="bi bi-x-circle"></i> Limpar
-                            </button>
-                        </div>
-                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i> Pesquisar
+                    </button>
+                    <a th:href="@{/templates/listar}" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Limpar
+                    </a>
                 </form>
             </div>
         </div>
+
         <ul class="tarefas-list" style="list-style:none; margin:0; padding:0;">
             <li class="tarefas-card" th:each="tarefa : ${tarefas}">
-                <div>
-                    <strong th:text="${tarefa.titulo}">Título</strong>
+                <div class="tarefa-info">
+                    <strong th:text="${tarefa.titulo}">Título da Tarefa</strong>
+                    <span class="tarefa-descricao" th:text="${tarefa.descricao}">Descrição da tarefa aqui.</span>
                 </div>
-                <div>
-                    <span th:text="${tarefa.descricao}">Descrição</span>
+
+                <div class="tarefa-tags">
+                    <span class="tag tag-prioridade" th:text="${tarefa.prioridade}"
+                        th:classappend="${#strings.toLowerCase(tarefa.prioridade)}">ALTA</span>
+                    <span class="tag tag-status" th:text="${tarefa.status}"
+                        th:classappend="${#strings.toLowerCase(tarefa.status)}">PENDENTE</span>
                 </div>
-                <div>
-                    <span th:text="${tarefa.prioridade}">Prioridade</span>
-                </div>
-                <div>
-                    <span th:text="${tarefa.status}">Status</span>
-                </div>
-                <div>
-                    <span>
-                        <a th:href="@{/templates/{id}/editar(id=${tarefa.id})}" class="btn-editar">Editar</a>
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        <a th:href="@{'/templates/' + ${tarefa.id} + '/associar-categoria'}"
-                            class="btn-editar">Gerenciar
-                            Categoria</a>
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        <form th:action="@{'/templates/' + ${tarefa.id} + '/excluir'}" method="post">
-                            <button onclick="return confirm('Tem certeza que deseja excluir?')"
-                                type="submit">Excluir</button>
-                        </form>
-                    </span>
+
+                <div class="tarefa-acoes">
+                    <a th:href="@{/templates/{id}/editar(id=${tarefa.id})}" title="Editar Tarefa">
+                        <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <a th:href="@{'/templates/' + ${tarefa.id} + '/associar-categoria'}" title="Gerenciar Categorias">
+                        <i class="bi bi-tags-fill"></i>
+                    </a>
+                    <form th:action="@{'/templates/' + ${tarefa.id} + '/excluir'}" method="post"
+                        onsubmit="return confirm('Tem certeza que deseja excluir esta tarefa?')">
+                        <button type="submit" title="Excluir Tarefa">
+                            <i class="bi bi-trash3-fill"></i>
+                        </button>
+                    </form>
                 </div>
             </li>
         </ul>

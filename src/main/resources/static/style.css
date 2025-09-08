@@ -7,28 +7,28 @@
 }
 
 body {
-    background-color: #f8f9fa; /* Um cinza bem claro para o fundo */
-    color: #3c4043; /* Cinza escuro para texto, mais suave que o preto puro */
+    background-color: #f8f9fa;
+    color: #3c4043;
     display: flex;
     justify-content: center;
-    align-items: flex-start; /* Alinha no topo */
+    align-items: flex-start;
     min-height: 100vh;
     padding: 2rem;
 }
 
 a {
     text-decoration: none;
-    color: #1a73e8; /* Azul padrão do Google */
+    color: #1a73e8;
     font-weight: 500;
     transition: color 0.2s ease-in-out;
 }
 
 a:hover {
-    color: #185abc; /* Azul um pouco mais escuro no hover */
+    color: #185abc;
 }
 
 /* --- Container Principal (para Formulários e Listas) --- */
-form,
+.form-container,
 .tarefas {
     background-color: #ffffff;
     padding: 2.5rem;
@@ -36,7 +36,7 @@ form,
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     border: 1px solid #e0e0e0;
     width: 100%;
-    max-width: 800px; /* Largura máxima para melhor leitura */
+    max-width: 800px;
 }
 
 /* --- Tipografia --- */
@@ -56,7 +56,7 @@ label {
 }
 
 /* --- Elementos de Formulário --- */
-form div:not(.form-buttons) {
+form div:not(.form-buttons):not(.checkbox-list):not(.checkbox-item) {
     margin-bottom: 1.5rem;
 }
 
@@ -88,7 +88,7 @@ textarea {
     resize: vertical;
 }
 
-/* --- Botões --- */
+/* --- Botões (Sistema Unificado com Classes) --- */
 .form-buttons {
     display: flex;
     justify-content: flex-end;
@@ -98,47 +98,56 @@ textarea {
     border-top: 1px solid #e8eaed;
 }
 
-button {
+.btn {
+    display: inline-block;
     padding: 0.75rem 1.5rem;
     border: none;
     border-radius: 8px;
     font-size: 0.95rem;
     font-weight: 500;
     cursor: pointer;
+    text-decoration: none;
+    text-align: center;
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Botão primário (Salvar, Nova Categoria, etc) */
-button[type="submit"],
-.tarefas .form-buttons button a {
+.btn-primary {
     background-color: #1a73e8;
     color: white;
 }
-
-button[type="submit"]:hover,
-.tarefas .form-buttons button:hover {
+.btn-primary:hover {
     background-color: #185abc;
+    color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Botão secundário (Cancelar, Voltar) */
-.form-buttons button:not([type="submit"]) {
+.btn-secondary {
     background-color: #e8eaed;
     color: #3c4043;
 }
-
-.form-buttons button:not([type="submit"]):hover {
+.btn-secondary:hover {
     background-color: #dadce0;
+    color: #3c4043;
 }
 
-/* Ajuste para o link dentro do botão */
-button a {
-    color: inherit;
-    display: block;
+/* --- Estilos para Filtros Aprimorados --- */
+.form-filtros {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
 }
 
+.form-filtros .form-control {
+    flex-grow: 1; /* Faz o input ocupar o espaço disponível */
+}
 
-/* --- Estilos das Listas (Tarefas e Categorias) --- */
+.form-filtros .btn {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; /* Espaço entre ícone e texto */
+}
+
+/* --- Estilos das Listas (Layout Aprimorado) --- */
 .tarefas-card-header {
     margin-bottom: 1.5rem;
 }
@@ -149,8 +158,9 @@ button a {
 }
 
 .tarefas-card {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr; /* Divide o card em 3 colunas */
+    gap: 1.5rem;
     align-items: center;
     padding: 1.2rem;
     border: 1px solid #e8eaed;
@@ -158,8 +168,6 @@ button a {
     margin-bottom: 1rem;
     background-color: #fff;
     transition: box-shadow 0.2s ease, transform 0.2s ease;
-    gap: 1rem;
-    flex-wrap: wrap; /* Permite que os itens quebrem linha em telas menores */
 }
 
 .tarefas-card:hover {
@@ -167,62 +175,122 @@ button a {
     transform: translateY(-2px);
 }
 
-/* Div do título/nome para ocupar mais espaço */
-.tarefas-card > div:first-child {
-    flex-grow: 1;
-    min-width: 200px; /* Garante um espaço mínimo antes de quebrar a linha */
+.tarefa-info {
+    display: flex;
+    flex-direction: column;
 }
 
-.tarefas-card strong {
+.tarefa-info strong {
     font-size: 1.1rem;
     color: #202124;
 }
 
-.tarefas-card span {
+.tarefa-info .tarefa-descricao {
+    font-size: 0.9rem;
     color: #5f6368;
-    margin-right: 1rem;
 }
 
-/* Ações dentro do card (Editar/Excluir) */
-.tarefas-card > div:not(:first-child) {
-    flex-shrink: 0; /* Impede que os botões encolham */
+/* --- Estilos para as Tags de Status/Prioridade --- */
+.tarefa-tags {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
 }
 
-/* Reset para o formulário do botão 'Excluir' */
-.tarefas-card form {
+.tag {
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.tag.alta { background-color: #fce8e6; color: #c5221f; }
+.tag.media { background-color: #feefc3; color: #7B5800; }
+.tag.baixa { background-color: #e6f4ea; color: #1e8e3e; }
+
+.tag.pendente { background-color: #e8f0fe; color: #1967d2; }
+.tag.concluida { background-color: #e6f4ea; color: #1e8e3e; }
+.tag.cancelada { background-color: #f1f3f4; color: #5f6368; }
+
+/* --- Estilos para as Ações com Ícones --- */
+.tarefa-acoes {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.25rem;
+}
+
+.tarefa-acoes a,
+.tarefa-acoes button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #5f6368;
+    transition: color 0.2s ease;
+}
+
+.tarefa-acoes a:hover,
+.tarefa-acoes button:hover {
+    color: #1a73e8;
+}
+
+.tarefa-acoes button:hover {
+    color: #c5221f; 
+}
+
+.tarefa-acoes i {
+    font-size: 1.3rem;
+}
+
+.tarefa-acoes form {
     padding: 0;
     margin: 0;
+    background: none;
     border: none;
     box-shadow: none;
-    background: none;
-    max-width: none;
 }
 
-/* Botão Excluir */
-.tarefas-card form button {
-    background-color: #fce8e6;
-    color: #c5221f;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-}
 
-.tarefas-card form button:hover {
-    background-color: #f9ddda;
-    color: #a50e0c;
-}
-a.btn-editar {
-    display: inline-block;
-    background-color: #e8f8f6;
-    color: #589498;
-    padding: 0.5rem 1rem;
-    font-size: 0.9rem;
-    border-radius: 8px;
-    font-weight: 500;
+/* --- Estilos Específicos para a Página "Gerenciar Categorias" --- */
+.tarefa-titulo {
     text-align: center;
-    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 1.1rem;
+    color: #5f6368;
+    margin-bottom: 2rem;
+    border-top: 1px solid #e8eaed;
+    border-bottom: 1px solid #e8eaed;
+    padding: 1rem 0;
 }
 
-a.btn-editar:hover {
-    background-color: #e8f8f6;
-    color: #589498;
+.checkbox-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.checkbox-item {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    padding: 0.8rem;
+    border-radius: 8px;
+    border: 1px solid #dadce0;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: 0.8rem;
+    cursor: pointer;
+}
+
+.checkbox-item label {
+    margin: 0;
+    font-weight: 500;
+    color: #3c4043;
+    cursor: pointer;
 }

@@ -13,33 +13,26 @@
         <div class="tarefas-card-header">
             <h1>CATEGORIAS CADASTRADAS</h1>
         </div>
-        <ul class="tarefas-list" style="list-style:none; margin:0; padding:0;">
+        <ul class="tarefas-list" style="list-style:none; padding:0;">
             <li class="tarefas-card" th:each="categoria : ${categorias}">
                 <div>
                     <strong th:text="${categoria.nome}">Nome</strong>
                 </div>
-                <div>
-                    <span>
-                        <a th:href="@{'/templates/categorias/editar/' + ${categoria.id}}">Editar</a>
-                    </span>
-                </div>
-                <div>
-                    <span>
-                        <form th:action="@{'/templates/categorias/' + ${categoria.id} + '/excluir'}" method="post">
-                            <button onclick="return confirm('Tem certeza que deseja excluir esta categoria?')" type="submit">Excluir</button>
-                        </form>
-                    </span>
+
+                <div class="card-actions">
+                    <a th:href="@{'/templates/categorias/editar/' + ${categoria.id}}" class="btn-editar">Editar</a>
+                    <form th:action="@{'/templates/categorias/' + ${categoria.id} + '/excluir'}" method="post"
+                        style="display: inline;">
+                        <button class="btn-excluir" onclick="return confirm('Tem certeza?')"
+                            type="submit">Excluir</button>
+                    </form>
                 </div>
             </li>
         </ul>
 
         <div class="form-buttons">
-            <button>
-                <a href="/templates/categorias/categoria">Nova Categoria</a>
-            </button>
-            <button>
-                <a href="/templates/listar">Voltar para Tarefas</a>
-            </button>
+            <a th:href="@{/templates/categorias/categoria}" class="btn-primary">Nova Categoria</a>
+            <a th:href="@{/templates/listar}" class="btn-secondary">Voltar para Tarefas</a>
         </div>
     </div>
 </body>

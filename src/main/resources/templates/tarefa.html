@@ -1,58 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Criar nova tarefa</title>
+    <title th:if="${tarefa.id == null}">Nova Tarefa</title>
+    <title th:if="${tarefa.id != null}">Editar Tarefa</title>
+    
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
 </head>
+
 <body>
-    <h1>Nova tarefa</h1>
-    <!-- form para salvar, ação oq ele vai chamar, object com quem ele vai trabalhar, metodo que vai chamar-->
-    <form th:action="@{/templates/salvar}"  method="post"  th:object="${tarefa}" >
 
-        <div th:if="${erros != null}" class="alert alert-danger" >
-            <p th:text="${erros}"></p>
+    <form th:action="@{/templates/salvar}" th:object="${tarefa}" method="post" class="form-container">
+        
+        <h1 th:if="${tarefa.id == null}">Nova Tarefa</h1>
+        <h1 th:if="${tarefa.id != null}">Editar Tarefa</h1>
+
+        <input type="hidden" th:field="*{id}">
+
+        <div>
+            <label for="titulo">Título</label>
+            <input id="titulo" type="text" th:field="*{titulo}" placeholder="Ex: Estudar para a prova de cálculo">
         </div>
 
         <div>
-            <label> Título </label>
-            <!-- field = atributo dentro do objeto, nesse caso, tarefa-->
-            <input th:field="*{titulo}"    type="text">
+            <label for="descricao">Descrição</label>
+            <textarea id="descricao" th:field="*{descricao}" placeholder="Ex: Revisar os capítulos 3 e 4 do livro"></textarea>
         </div>
 
         <div>
-            <label>Descrição </label>
-            <textarea th:field="*{descricao}"  rows="3"></textarea>
-        </div>  
-
-        <div>
-            <label>Responsável </label>
-            <input th:field="*{responsavel}" type="text">
+            <label for="responsavel">Responsável</label>
+            <input id="responsavel" type="text" th:field="*{responsavel}" placeholder="Ex: Maria">
         </div>
 
         <div>
-            <label> Prioridade</label>
-            <select  th:field="*{prioridade}">
-                <option th:each="p : ${prioridades}" th:value="${p}" th:text="${p}"></option>
+            <label for="prioridade">Prioridade</label>
+            <select id="prioridade" th:field="*{prioridade}">
+                <option value="ALTA">Alta</option>
+                <option value="MEDIA">Média</option>
+                <option value="BAIXA">Baixa</option>
             </select>
         </div>
 
         <div>
-            <label> Status</label>
-            <select  th:field="*{status}">
-                <option th:each="s : ${listaStatus}" th:value="${s}" th:text="${s}"></option>
+            <label for="status">Status</label>
+            <select id="status" th:field="*{status}">
+                <option value="PENDENTE">Pendente</option>
+                <option value="CONCLUIDA">Concluída</option>
+                <option value="CANCELADA">Cancelada</option>
             </select>
         </div>
-
+        
         <div>
-            <label> Data limite</label>
-            <input type="date" th:field="*{dataLimite}">
+            <label for="dataLimite">Data limite</label>
+            <input id="dataLimite" type="date" th:field="*{dataLimite}">
         </div>
 
-        <br>
-        <button type="submit">Salvar</button>
-        <!-- me enviar de volta pra lista-->
-        <button > <a href="/templates/listar">Cancelar </a>  </button>
+        <div class="form-buttons">
+            <a th:href="@{/templates/listar}" class="btn btn-secondary">Cancelar</a>
+            <button type="submit" class="btn btn-primary">Salvar Tarefa</button>
+        </div>
     </form>
 
 </body>

@@ -39,7 +39,7 @@ public class TemplateService {
             tarefas = tarefas.stream().filter(t -> t.getTitulo().toLowerCase().contains(titulo.toLowerCase())).toList();
         }
 
-        model.addAttribute("tarefas", tarefaRepository.findAll());
+        model.addAttribute("tarefas", tarefas);
         return "listar";// vai dizer qual template vou usar
     }
 
