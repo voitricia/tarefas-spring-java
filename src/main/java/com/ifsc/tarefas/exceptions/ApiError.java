@@ -3,24 +3,36 @@ package com.ifsc.tarefas.exceptions;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+import org.springframework.http.HttpStatus;
+
 public class ApiError {
-    //informações do erro
+    // informacoes do erro
+    // data e hora do erro
     private LocalDateTime timestamp;
+    // status do erro, 404, 500, 405 e etc
     private int status;
+    // qual erro aconteceu
     private String error;
+    // mensagem retornada ao usuario
     private String message;
+    // caminho da api que deu erro
     private String path;
+    // informacoes sobre o erro, ex: campo é obrigatorio e etc
     private Map<String, String> fields;
 
-    //construtor
-    public ApiError(LocalDateTime timestamp, int status, String error, String message, String path, Map<String, String> fields) {
-        this.timestamp = LocalDateTime.now();
-        this.status = status;
-        this.error = error;
-        this.message = message;
-        this.path = path;
-        this.fields = fields;
-    }
+    // constructor padrao do objeto
+    public ApiError(int status, String error, String message, String path) {
+            this.timestamp = LocalDateTime.now();
+            this.status = status;
+            this.error = error;
+            this.message = message;
+            this.path = path;
+        }
+
+        public ApiError(int status, String error, String message, String path, Map<String, String> fields) {
+            this(status, error, message, path);
+            this.fields = fields;
+        }
 
     public LocalDateTime getTimestamp() {
         return timestamp;

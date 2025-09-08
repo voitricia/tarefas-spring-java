@@ -14,14 +14,15 @@ import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Categoria {
+    @Column(name = "categoria_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
-    @Column(name = "categoria_id")
+    
     private Long id;
     private String nome;
 
-    @JsonIgnore
+    @JsonIgnore //ignorar na hora de converter para json (evitar loop infinito)
     @ManyToMany(mappedBy = "categorias") //mapeado pela lista categorias na classe Tarefa
     private Set<Tarefa> tarefas = new HashSet<>();
 

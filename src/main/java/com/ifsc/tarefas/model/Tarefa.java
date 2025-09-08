@@ -2,9 +2,7 @@ package com.ifsc.tarefas.model;
 
 import java.time.LocalDate;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -21,50 +19,68 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 
-@Entity //entidade anotação - é uma tabela no banco de dados
+// entidade do banco, cria uma tabela em nosso banco h2 a tabela tarefa e 
+// os atributos dentro dela
+@Entity
 public class Tarefa {
-    
+    // Informa que nosso atributo "id" é uma chave primária e a cada novo registro ele vai 
+    // ser auto incrementado
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // private = não posso acessar esse atributo fora da classe, outros tipos também usados: public e protected
     // estrutura java: primeiro o tipo da variavel, depois o nome da variavel
+    @Column(name = "tarefa_id")
+    // nome do atributo no back
+    private Long id;
 
-    @Column(name = "tarefa_id") // nome da coluna no banco de dados
-    private Long id;// nome do atributo no back
-
-    @NotBlank(message = "O título é obrigatório")
-    @Size(min = 3, max = 100, message = "O título deve ter entre 3 e 100 caracteres")
+    // nome da coluna no banco
+    // anotação para validação de campos, não pode ser vazio
+    @NotBlank(message = "O campo titulo é obrigatorio")
+    // O tamanho do campo deve ser entre 3 e
+    @Size(min = 3, max = 100, message = "O campo titulo deve ter entre 3 e 100 caracteres")
     private String titulo;
-
-    @Size(max = 500, message = "A descrição deve ter no máximo 500 caracteres")
+    
+    @Size(max = 500, message = "O campo descricao deve ter no maximo 500 caracteres")
     private String descricao;
 
-    @NotBlank(message = "O responsável é obrigatório")
-    @Size(min = 3, max = 100, message = "O nome do responsável deve ter entre 3 e 100 caracteres")
+    @NotBlank(message = "O campo responsavel é obrigatorio")
+    @Size(min = 3, max = 100, message = "O campo responsavel deve ter entre 3 e 100 caracteres")
     private String responsavel;
 
     private LocalDate dataCriacao = LocalDate.now();
 
-    @FutureOrPresent(message = "A data limite deve ser hoje ou uma data futura")
+    @FutureOrPresent(message = "A data limite deve ser futura ou no presente")
     private LocalDate dataLimite;
 
-    @ManyToMany // relação de muitos para muitos
+    // cria uma relação de muitos para muitos
+    @ManyToMany
+    // criar uma tabela intermediaria que tem o id da tarefa e categoria
     @JoinTable(
-        name = "tarefa_categoria",//tabela intermediária
-        joinColumns = @JoinColumn(name = "tarefa_id"),//atributo de um objeto que se junta com a tabela intermediária
-        inverseJoinColumns = @JoinColumn(name = "categoria_id") //atributo do outro objeto que se junta com a tabela intermediária
+        // nome tabela
+        name = "tarefa_categoria",
+        // o atributo desse objeto que se juntara a tabela intermediaria
+        joinColumns = @JoinColumn(name = "tarefa_id"),
+        // o atributo do outro objeto que se juntara a tabela intermediaria
+        inverseJoinColumns = @JoinColumn(name = "categoria_id")
     )
+    // hash set são listas que não aceitam repetição
     
     private Set<Categoria> categorias = new HashSet<>();
 
+    // List é bom para se usar para criar listas
+    // lista de categorias:
 
-
+    // Many to one digo que essa lista de categorias pertence 
+    // a essa tarefa
+    // O fetch type eager faz com que ele carregue tudo de uma vez
+    // ja o lazy carrega um por um
+   
+    @NotNull(message = "O campo categorias é obrigatorio")
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "O status é obrigatório")
     private Status status;
 
+    @NotNull(message = "O campo prioridade é obrigatorio")
     @Enumerated(EnumType.STRING)
-    @NotNull(message = "A prioridade é obrigatória")
     private Prioridade prioridade;
 
     public Status getStatus() {
@@ -121,4 +137,6 @@ public class Tarefa {
     public void setCategorias(Set<Categoria> categorias) {
         this.categorias = categorias;
     }
+ 
+    
 }
