@@ -33,7 +33,12 @@ public class TemplateService {
 
     @GetMapping("/listar") // página para listar as tarefas
     // model serve para adicionar atributos que serão usados no template (o html)
-    String listarTarefas(Model model) {
+    String listarTarefas(Model model, @RequestParam(required = false) String titulo) {
+        var tarefas = tarefaRepository.findAll();
+        if (titulo != null && !titulo.trim().isEmpty()) {
+            tarefas = tarefas.stream().filter(t -> t.getTitulo().toLowerCase().contains(titulo.toLowerCase())).toList();
+        }
+
         model.addAttribute("tarefas", tarefaRepository.findAll());
         return "listar";// vai dizer qual template vou usar
     }
