@@ -21,15 +21,48 @@
             </div>
             <div class="card-container">
                 <form th:action="@{/templates/listar}" method="get" class="form-filtros">
-                    <input type="text" class="form-control" id="titulo" name="titulo" th:value="${titulo}"
-                        placeholder="Buscar por título...">
+                    <div class="filter-grid">
 
-                    <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-search"></i> Pesquisar
-                    </button>
-                    <a th:href="@{/templates/listar}" class="btn btn-secondary">
-                        <i class="bi bi-x-circle"></i> Limpar
-                    </a>
+                        <div class="filter-item">
+                            <label for="titulo">Título</label>
+                            <input type="text" class="form-control" id="titulo" name="titulo" th:value="${titulo}"
+                                placeholder="Buscar por título...">
+                        </div>
+
+                        <div class="filter-item">
+                            <label for="responsavel">Responsável</label>
+                            <input type="text" class="form-control" id="responsavel" name="responsavel"
+                                th:value="${responsavel}" placeholder="Buscar por responsável...">
+                        </div>
+
+                        <div class="filter-item">
+                            <label for="prioridade">Prioridade</label>
+                            <select id="prioridade" name="prioridade" class="form-control">
+                                <option value="" th:selected="${prioridade == null or prioridade == ''}">Todas</option>
+                                <option value="ALTA" th:selected="${prioridade == 'ALTA'}">Alta</option>
+                                <option value="MEDIA" th:selected="${prioridade == 'MEDIA'}">Média</option>
+                                <option value="BAIXA" th:selected="${prioridade == 'BAIXA'}">Baixa</option>
+                            </select>
+                        </div>
+
+                        <div class="filter-item">
+                            <label for="status">Status</label>
+                            <select id="status" name="status" class="form-control">
+                                <option value="" th:selected="${status == null or status == ''}">Todos</option>
+                                <option value="PENDENTE" th:selected="${status == 'PENDENTE'}">Pendente</option>
+                                <option value="CONCLUIDA" th:selected="${status == 'CONCLUIDA'}">Concluída</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-actions">
+                        <a th:href="@{/templates/listar}" class="btn btn-secondary">
+                            <i class="bi bi-x-circle"></i> Limpar Filtros
+                        </a>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-search"></i> Pesquisar
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
