@@ -11,3 +11,5 @@ INSERT INTO tarefa (titulo, descricao, responsavel, prioridade, status, data_cri
 ('Consulta médica', 'Consulta com o Dr. Silva', 'Ana', 'BAIXA', 'PENDENTE', '2023-10-03', '2023-10-15'),
 ('Comprar mantimentos', 'Lista de compras para a semana', 'Carlos', 'ALTA', 'PENDENTE', '2023-10-04', '2023-10-07'),
 ('Organizar festa de aniversário', 'Planejar a festa de aniversário da Ana', 'Fernanda', 'MEDIA', 'PENDENTE', '2023-10-05', '2023-10-20');
+
+INSERT INTO users (username, password, role) VALUES ('admin', 'admin', 'ADMIN');
