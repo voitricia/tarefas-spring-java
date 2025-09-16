@@ -61,6 +61,7 @@ form div:not(.form-buttons):not(.checkbox-list):not(.checkbox-item) {
 }
 
 input[type="text"],
+input[type="password"],
 input[type="date"],
 textarea,
 select {

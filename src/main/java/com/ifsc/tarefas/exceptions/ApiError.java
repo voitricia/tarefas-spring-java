@@ -3,8 +3,6 @@ package com.ifsc.tarefas.exceptions;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-import org.springframework.http.HttpStatus;
-
 public class ApiError {
     // informacoes do erro
     // data e hora do erro

@@ -26,7 +26,7 @@ public class AuthRepository {
         return userRepository.findById(usarname)
             .filter(u -> u.getPassword().equals(password))
             .map(u -> {
-                String jwt = jwtUtil.generateToken(u.getUsername(), u.getRole());
+                String jwt = jwtUtil.generateToken(u.getUsername(), u.getRole()); // gera o token
                 tokenStore.put(jwt, new SessionInfo(u.getUsername(), Instant.now()));
                 return jwt;
             });

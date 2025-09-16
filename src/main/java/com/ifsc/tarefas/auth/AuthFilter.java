@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class AuthFilter extends OncePerRequestFilter {
+public class AuthFilter extends OncePerRequestFilter { // garante que o filtro será executado apenas uma vez por requisição, para evitar problema de permissão de usuário
 
     private final AuthRepository authRepository;
     private final AntPathMatcher pathMatcher = new AntPathMatcher();
@@ -32,7 +32,7 @@ public class AuthFilter extends OncePerRequestFilter {
             "/webjars/**",
             "/h2-console/**",
             "/",
-            "/error");
+            "/error"); // não vai aplicar os filtros nessas rotas
 
     public AuthFilter(AuthRepository authRepository, JwtUtil jwtUtil) {
         this.authRepository = authRepository;
@@ -82,6 +82,7 @@ public class AuthFilter extends OncePerRequestFilter {
             response.getWriter().write("{\"error\": \"Unauthorized\"}");
             return;
         }
+        
         String username = user.get();
         request.setAttribute("AUTH_USER", username);
         try {
