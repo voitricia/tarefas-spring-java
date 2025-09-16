@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import jakarta.persistence.criteria.CriteriaBuilder.In;
 
 @Component
 public class JwtUtil {
@@ -30,16 +29,7 @@ public class JwtUtil {
             .compact();
     }
 
-    public String getSubject(String token){
-        return Jwts.parserBuilder()
-            .setSigningKey(key)
-            .build()
-            .parseClaimsJws(token)
-            .getBody()
-            .getSubject();
-    }
-
-    public String getSubject(String token) {
+    public String getSubject(String token) throws Exception {
         return Jwts.parserBuilder()
             .setSigningKey(key)
             .build()

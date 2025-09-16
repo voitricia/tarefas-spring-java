@@ -4,7 +4,6 @@ import java.time.Instant;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collector;
 
 import org.springframework.stereotype.Repository;
 
@@ -63,16 +62,13 @@ public class AuthRepository {
         u.setUsername(username);
         u.setPassword(password);
         u.setRole("USER");
+
         userRepository.save(u);
         return true;
     }
 
     public String getRoleByUsername(String username) {
         return userRepository.findByUsername(username).map(User::getRole).orElse("USER");
-    }
-
-    public List<String> getAllUsernames() {
-        return userRepository.findAll().stream().map(User::getUsername).sorted().collect(Collectors.toList());
     }
 
     private record SessionInfo(String username, Instant authenticatedAt) {}

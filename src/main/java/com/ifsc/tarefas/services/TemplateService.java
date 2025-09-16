@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.ifsc.tarefas.auth.RequestAuth;
 import com.ifsc.tarefas.model.Categoria;
 import com.ifsc.tarefas.model.Prioridade;
 import com.ifsc.tarefas.model.Status;
 import com.ifsc.tarefas.model.Tarefa;
 import com.ifsc.tarefas.repository.CategoriaRepository;
 import com.ifsc.tarefas.repository.TarefaRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,9 +37,18 @@ public class TemplateService {
 
     @GetMapping("/listar") // página para listar as tarefas
     // model serve para adicionar atributos que serão usados no template (o html)
-    String listarTarefas(Model model, @RequestParam(required = false) String titulo, @RequestParam(required = false) String responsavel, 
-    @RequestParam(required = false) Status  status, @RequestParam(required = false) Prioridade prioridade) {
-        var tarefas = tarefaRepository.findAll();
+    String listarTarefas(Model model, 
+                         @RequestParam(required = false) String titulo, 
+                         @RequestParam(required = false) String responsavel, 
+                         @RequestParam(required = false) Status status, 
+                         @RequestParam(required = false) Prioridade prioridade, 
+                         HttpServletRequest request) { 
+
+        String user = RequestAuth.getUser(request);
+        String role = RequestAuth.getRole(request);
+
+        var tarefas = role.equals("ADMIN") ? tarefaRepository.findAll() : tarefaRepository.findByResponsavel(user);
+
         if (titulo != null && !titulo.trim().isEmpty()) {
             tarefas = tarefas.stream().filter(t -> t.getTitulo().toLowerCase().contains(titulo.toLowerCase())).toList();
         }
