@@ -231,41 +231,55 @@ textarea {
 
 /* --- Estilos para as Ações com Ícones --- */
 .tarefas-acoes {
-    display: flex;
+    display: flex; /* <<< A MUDANÇA PRINCIPAL É AQUI */
     justify-content: flex-end;
     align-items: center;
-    gap: 1.25rem;
+    gap: 1rem;
 }
 
-.tarefa-acoes a,
-.tarefas-acoes button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    color: #5f6368;
-    transition: color 0.2s ease;
-}
-
-.tarefas-acoes a:hover,
-.tarefas-acoes button:hover {
-    color: #1a73e8;
-}
-
-.tarefas-acoes button:hover {
-    color: #c5221f;
-}
-
-.tarefas-acoes i {
-    font-size: 1.3rem;
-}
-
+/* Resetamos o estilo do formulário para que ele se comporte
+  como um item flexível, e não como um bloco que quebra a linha.
+*/
 .tarefas-acoes form {
     padding: 0;
     margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* Resetamos o estilo do botão para que ele seja apenas um ícone clicável,
+  sem fundo ou borda.
+*/
+.tarefas-acoes button {
     background: none;
     border: none;
-    box-shadow: none;
+    padding: 0;
+    cursor: pointer;
+    line-height: 1; /* Alinha a altura do ícone */
+}
+
+/*
+  Regra unificada para todos os ícones dentro das ações,
+  sejam eles links <a> ou botões <button>.
+*/
+.tarefas-acoes a i,
+.tarefas-acoes button i {
+    font-size: 1.3rem; /* Tamanho dos ícones */
+    color: #5f6368;    /* Cor cinza padrão */
+    transition: color 0.2s ease;
+}
+
+/* Efeito de hover para os ícones */
+.tarefas-acoes a:hover i {
+    color: #1a73e8; /* Azul para editar/gerenciar */
+}
+
+.tarefas-acoes button:hover i {
+    color: #d93025; /* Vermelho para excluir */
+}
+
+.tarefas-acoes a.btn-gerenciar:hover i {
+    color: #6f18e2; 
 }
 
 
