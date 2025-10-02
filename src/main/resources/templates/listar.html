@@ -12,61 +12,66 @@
 
 <body>
     <div class="tarefas">
+
         <div class="tarefas-card-header">
             <h1>TAREFAS CADASTRADAS</h1>
-        </div>
-        <div class="card mb-4">
-            <div class="card-header">
-                <h4>Filtros</h4>
-            </div>
-            <div class="card-container">
-                <form th:action="@{/templates/listar}" method="get" class="form-filtros">
-                    <div class="filter-grid">
-
-                        <div class="filter-item">
-                            <label for="titulo">Título</label>
-                            <input type="text" class="form-control" id="titulo" name="titulo" th:value="${titulo}"
-                                placeholder="Buscar por título...">
-                        </div>
-
-                        <div class="filter-item">
-                            <label for="responsavel">Responsável</label>
-                            <input type="text" class="form-control" id="responsavel" name="responsavel"
-                                th:value="${responsavel}" placeholder="Buscar por responsável...">
-                        </div>
-
-                        <div class="filter-item">
-                            <label for="prioridade">Prioridade</label>
-                            <select id="prioridade" name="prioridade" class="form-control">
-                                <option value="" th:selected="${prioridade == null or prioridade == ''}">Todas</option>
-                                <option value="ALTA" th:selected="${prioridade == 'ALTA'}">Alta</option>
-                                <option value="MEDIA" th:selected="${prioridade == 'MEDIA'}">Média</option>
-                                <option value="BAIXA" th:selected="${prioridade == 'BAIXA'}">Baixa</option>
-                            </select>
-                        </div>
-
-                        <div class="filter-item">
-                            <label for="status">Status</label>
-                            <select id="status" name="status" class="form-control">
-                                <option value="" th:selected="${status == null or status == ''}">Todos</option>
-                                <option value="PENDENTE" th:selected="${status == 'PENDENTE'}">Pendente</option>
-                                <option value="CONCLUIDA" th:selected="${status == 'CONCLUIDA'}">Concluída</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="filter-actions">
-                        <a th:href="@{/templates/listar}" class="btn btn-secondary">
-                            <i class="bi bi-x-circle"></i> Limpar Filtros
-                        </a>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="bi bi-search"></i> Pesquisar
-                        </button>
-                    </div>
-                </form>
+            <div class="header-actions">
+                <a th:href="@{/templates/categorias/listar}" class="btn btn-secondary">
+                    <i class="bi bi-tags"></i> Gerenciar Categorias
+                </a>
+                <a th:href="@{/templates/tarefa}" class="btn btn-primary">
+                    <i class="bi bi-plus-lg"></i> Nova Tarefa
+                </a>
             </div>
         </div>
 
+        <div class="filter-card">
+            <h4 class="card-header">Filtros</h4>
+            <form th:action="@{/templates/listar}" method="get" class="form-filtros">
+                <div class="filter-grid">
+
+                    <div class="filter-item">
+                        <label for="titulo">Título</label>
+                        <input type="text" id="titulo" name="titulo" th:value="${titulo}"
+                            placeholder="Buscar por título...">
+                    </div>
+
+                    <div class="filter-item">
+                        <label for="responsavel">Responsável</label>
+                        <input type="text" id="responsavel" name="responsavel"
+                            th:value="${responsavel}" placeholder="Buscar por responsável...">
+                    </div>
+
+                    <div class="filter-item">
+                        <label for="prioridade">Prioridade</label>
+                        <select id="prioridade" name="prioridade">
+                            <option value="" th:selected="${prioridade == null or prioridade == ''}">Todas</option>
+                            <option value="ALTA" th:selected="${prioridade == 'ALTA'}">Alta</option>
+                            <option value="MEDIA" th:selected="${prioridade == 'MEDIA'}">Média</option>
+                            <option value="BAIXA" th:selected="${prioridade == 'BAIXA'}">Baixa</option>
+                        </select>
+                    </div>
+
+                    <div class="filter-item">
+                        <label for="status">Status</label>
+                        <select id="status" name="status">
+                            <option value="" th:selected="${status == null or status == ''}">Todos</option>
+                            <option value="PENDENTE" th:selected="${status == 'PENDENTE'}">Pendente</option>
+                            <option value="CONCLUIDA" th:selected="${status == 'CONCLUIDA'}">Concluída</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="filter-actions">
+                    <a th:href="@{/templates/listar}" class="btn btn-secondary">
+                        <i class="bi bi-x-circle"></i> Limpar Filtros
+                    </a>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-search"></i> Pesquisar
+                    </button>
+                </div>
+            </form>
+        </div>
         <ul class="tarefas-list" style="list-style:none; margin:0; padding:0;">
             <li class="tarefas-card" th:each="tarefa : ${tarefas}">
                 <div class="tarefa-info">
@@ -75,9 +80,9 @@
                 </div>
 
                 <div class="tarefa-tags">
-                    <span class="tag tag-prioridade" th:text="${tarefa.prioridade}"
+                    <span class="tag" th:text="${tarefa.prioridade}"
                         th:classappend="${#strings.toLowerCase(tarefa.prioridade)}">ALTA</span>
-                    <span class="tag tag-status" th:text="${tarefa.status}"
+                    <span class="tag" th:text="${tarefa.status}"
                         th:classappend="${#strings.toLowerCase(tarefa.status)}">PENDENTE</span>
                 </div>
 
@@ -101,8 +106,7 @@
             </li>
         </ul>
     </div>
-    <scriptsrc="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js">
-        </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

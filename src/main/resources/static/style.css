@@ -36,7 +36,7 @@ a:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     border: 1px solid #e0e0e0;
     width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
 }
 
 /* --- Tipografia --- */
@@ -132,20 +132,65 @@ textarea {
     color: #3c4043;
 }
 
-/* --- Estilos ATUALIZADOS para Filtros --- */
-.form-filtros {
-    display: block;
+/* =================== NOVOS ESTILOS DE BOTÃO (VERDE E VERMELHO) =================== */
+
+/* Botão Verde (Sucesso) */
+.btn-success {
+    background-color: #1e8e3e; /* Verde Google */
+    color: white;
+}
+.btn-success:hover {
+    background-color: #187332;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Botão Vermelho (Perigo/Cancelar) */
+.btn-danger {
+    background-color: #811e17; /* Vermelho Google */
+    color: white;
+}
+.btn-danger:hover {
+    background-color: #811e17;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Estilos ATUALIZADOS para Filtros --- */
+
+/* Estiliza o painel/card geral dos filtros */
+.filter-card {
+    background-color: #f8f9fa; /* Um fundo cinza bem claro para diferenciar */
+    border: 1px solid #e8eaed;
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem; /* Espaço antes da lista de tarefas */
+}
+
+.filter-card .card-header {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: #202124;
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid #e8eaed;
+}
+
+/* O container do formulário de filtros */
+.form-filtros {
+    display: flex;
+    flex-direction: column; /* Organiza os itens em coluna */
+}
+
+/* A grade que contém os campos de filtro */
 .filter-grid {
     display: grid;
-    /* ESTA LINHA GARANTE QUE AS DUAS COLUNAS TENHAM LARGURA IDÊNTICA */
-    grid-template-columns: repeat(2, 1fr); 
-    row-gap: 0rem;    /* Define o espaço vertical (entre as linhas) */
-    column-gap: 1rem;  /* Mantém o espaço horizontal (entre as colunas) */
-    margin-bottom: 1rem;
+    grid-template-columns: repeat(2, 1fr); /* Mantém as duas colunas */
+    gap: 1.5rem; /* Aumenta o espaçamento entre os campos */
+    margin-bottom: 1.5rem;
 }
 
+/* O container de cada item (label + input) */
 .filter-item {
     display: flex;
     flex-direction: column;
@@ -154,16 +199,22 @@ textarea {
 .filter-item label {
     margin-bottom: 0.5rem;
     font-weight: 500;
+    font-size: 0.9rem;
 }
 
+/* Container para os botões de ação (Filtrar e Limpar) */
 .filter-actions {
     display: flex;
-    justify-content: flex-end;
+    justify-content: flex-end; /* Alinha os botões à direita */
     gap: 1rem;
+    margin-top: 1rem;
 }
 
 /* --- Estilos das Listas (Layout Aprimorado) --- */
 .tarefas-card-header {
+    display: flex;                 /* Ativa o alinhamento em linha */
+    justify-content: space-between;/* Coloca um item em cada ponta (título na esquerda, botão na direita) */
+    align-items: center;           /* Alinha os dois verticalmente no centro */
     margin-bottom: 1.5rem;
 }
 
