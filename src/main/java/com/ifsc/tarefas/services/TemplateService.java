@@ -15,6 +15,7 @@ import com.ifsc.tarefas.model.Status;
 import com.ifsc.tarefas.model.Tarefa;
 import com.ifsc.tarefas.repository.CategoriaRepository;
 import com.ifsc.tarefas.repository.TarefaRepository;
+import com.ifsc.tarefas.repository.UserRepository;
 
 import jakarta.servlet.http.HttpServletRequest;
 
@@ -29,10 +30,12 @@ public class TemplateService {
 
     private final TarefaRepository tarefaRepository;
     private final CategoriaRepository categoriaRepository;
+    private final UserRepository userRepository;
 
-    public TemplateService(TarefaRepository tarefaRepository, CategoriaRepository categoriaRepository) {
+    public TemplateService(TarefaRepository tarefaRepository, CategoriaRepository categoriaRepository, UserRepository userRepository) {
         this.tarefaRepository = tarefaRepository;
         this.categoriaRepository = categoriaRepository;
+        this.userRepository = userRepository;
     }
 
     @GetMapping("/listar") // página para listar as tarefas
@@ -76,8 +79,9 @@ public class TemplateService {
     }
 
     @PostMapping("/salvar") // api que vai receber os dados do formulário
-    String salvar(@ModelAttribute("tarefa") Tarefa tarefa) { // @ModelAttribute indica que o objeto tarefa será
+    String salvar(@ModelAttribute("tarefa") Tarefa tarefa, HttpServletRequest request) { // @ModelAttribute indica que o objeto tarefa será
                                                              // preenchido com os dados do formulário
+                                                             
         tarefaRepository.save(tarefa);
         return "redirect:/templates/listar"; // redireciona para a página de listagem após salvar
     }
