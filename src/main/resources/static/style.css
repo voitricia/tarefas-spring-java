@@ -412,3 +412,50 @@ textarea {
 .empty-state span {
     color: #5f6368;
 }
+/* =================== ESTILOS PARA SEÇÃO DE COMENTÁRIOS =================== */
+
+.comentarios-section {
+    /* Faz a seção ocupar toda a largura do card da tarefa */
+    grid-column: 1 / -1; 
+    margin-top: 1.5rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid #e8eaed;
+}
+
+.comentario-item {
+    background-color: #f8f9fa;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+    border: 1px solid #e0e0e0;
+}
+
+.comentario-texto {
+    margin: 0 0 0.5rem 0;
+    color: #3c4043;
+    line-height: 1.4;
+}
+
+.comentario-meta {
+    font-size: 0.8rem;
+    color: #5f6368;
+}
+
+.comentario-form {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.comentario-form textarea {
+    flex-grow: 1; /* Faz o campo de texto ocupar o espaço disponível */
+    min-height: 40px;
+    height: 40px;
+    resize: vertical;
+}
+
+.comentario-form button {
+    height: 40px;
+    white-space: nowrap; /* Evita que o texto do botão quebre linha */
+}

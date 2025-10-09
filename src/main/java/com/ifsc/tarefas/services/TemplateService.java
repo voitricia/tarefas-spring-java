@@ -1,5 +1,6 @@
 package com.ifsc.tarefas.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,10 +11,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ifsc.tarefas.auth.RequestAuth;
 import com.ifsc.tarefas.model.Categoria;
+import com.ifsc.tarefas.model.Comentario;
 import com.ifsc.tarefas.model.Prioridade;
 import com.ifsc.tarefas.model.Status;
 import com.ifsc.tarefas.model.Tarefa;
+import com.ifsc.tarefas.model.User;
 import com.ifsc.tarefas.repository.CategoriaRepository;
+import com.ifsc.tarefas.repository.ComentarioRepository;
 import com.ifsc.tarefas.repository.TarefaRepository;
 import com.ifsc.tarefas.repository.UserRepository;
 
@@ -31,11 +35,14 @@ public class TemplateService {
     private final TarefaRepository tarefaRepository;
     private final CategoriaRepository categoriaRepository;
     private final UserRepository userRepository;
+    private final ComentarioRepository comentarioRepository;
+    
 
-    public TemplateService(TarefaRepository tarefaRepository, CategoriaRepository categoriaRepository, UserRepository userRepository) {
+    public TemplateService(TarefaRepository tarefaRepository, CategoriaRepository categoriaRepository, UserRepository userRepository, ComentarioRepository comentarioRepository) {
         this.tarefaRepository = tarefaRepository;
         this.categoriaRepository = categoriaRepository;
         this.userRepository = userRepository;
+        this.comentarioRepository = comentarioRepository;
     }
 
     @GetMapping("/listar") // página para listar as tarefas
@@ -79,7 +86,7 @@ public class TemplateService {
     }
 
     @PostMapping("/salvar") // api que vai receber os dados do formulário
-    String salvar(@ModelAttribute("tarefa") Tarefa tarefa, HttpServletRequest request) { // @ModelAttribute indica que o objeto tarefa será
+    String salvar(@ModelAttribute("tarefa") Tarefa tarefa) { // @ModelAttribute indica que o objeto tarefa será
                                                              // preenchido com os dados do formulário
                                                              
         tarefaRepository.save(tarefa);
@@ -133,6 +140,33 @@ public class TemplateService {
 
         tarefa.get().getCategorias().add(categoria.get());
         tarefaRepository.save(tarefa.get());   
+        return "redirect:/templates/listar";
+    }
+
+    @PostMapping("/tarefas/{tarefaId}/comentarios")
+    public String salvarComentario(@PathVariable Long tarefaId, 
+                                   @RequestParam String texto, 
+                                   HttpServletRequest request) {
+        
+        // Pega o nome do usuário logado
+        String username = RequestAuth.getUser(request);
+
+        // Busca a tarefa e o usuário no banco de dados
+        Tarefa tarefa = tarefaRepository.findById(tarefaId).orElse(null);
+        User usuario = userRepository.findByUsername(username).orElse(null);
+
+        // Validação simples para garantir que tudo existe
+        if (tarefa != null && usuario != null && texto != null && !texto.isBlank()) {
+            Comentario comentario = new Comentario();
+            comentario.setTexto(texto);
+            comentario.setDataCriacao(LocalDateTime.now());
+            comentario.setTarefa(tarefa);
+            comentario.setUsuario(usuario);
+            
+            comentarioRepository.save(comentario);
+        }
+
+        // Redireciona de volta para a lista de tarefas
         return "redirect:/templates/listar";
     }
 

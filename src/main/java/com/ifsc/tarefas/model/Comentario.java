@@ -26,35 +26,45 @@ public class Comentario {
     @JoinColumn(name = "usuario_username", nullable = false)
     private User usuario;
 
-    // Getters e Setters
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getTexto() {
         return texto;
     }
+
     public void setTexto(String texto) {
         this.texto = texto;
     }
+
     public LocalDateTime getDataCriacao() {
         return dataCriacao;
     }
+
     public void setDataCriacao(LocalDateTime dataCriacao) {
         this.dataCriacao = dataCriacao;
     }
+
     public Tarefa getTarefa() {
         return tarefa;
     }
+
     public void setTarefa(Tarefa tarefa) {
         this.tarefa = tarefa;
     }
+
     public User getUsuario() {
         return usuario;
     }
+
     public void setUsuario(User usuario) {
         this.usuario = usuario;
     }
+
+    
 }

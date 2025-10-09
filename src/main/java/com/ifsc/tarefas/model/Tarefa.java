@@ -1,8 +1,12 @@
 package com.ifsc.tarefas.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -13,15 +17,12 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
-import java.util.ArrayList; 
-import java.util.List;      
-import jakarta.persistence.CascadeType; 
-import jakarta.persistence.ManyToOne;     
-import jakarta.persistence.OneToMany;  
+
 
 
 // entidade do banco, cria uma tabela em nosso banco h2 a tabela tarefa e 
@@ -50,12 +51,7 @@ public class Tarefa {
 
     @NotBlank(message = "O campo responsavel é obrigatorio")
     @Size(min = 3, max = 100, message = "O campo responsavel deve ter entre 3 e 100 caracteres")
-    //private String responsavel;
-    @ManyToOne // Várias tarefas podem pertencer a um usuário
-    private User usuario; 
-
-    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comentario> comentarios = new ArrayList<>(); 
+    private String responsavel;
 
     
     private LocalDate dataCriacao = LocalDate.now();
@@ -94,6 +90,11 @@ public class Tarefa {
     @Enumerated(EnumType.STRING)
     private Prioridade prioridade;
 
+
+    @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comentario> comentarios = new ArrayList<>();
+
+
     public Status getStatus() {
         return status;
     }
@@ -124,12 +125,12 @@ public class Tarefa {
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
-    //public String getResponsavel() {
-    //    return responsavel;
-    //
-    //public void setResponsavel(String responsavel) {
-    //    this.responsavel = responsavel;
-    //}
+    public String getResponsavel() {
+        return responsavel;
+    }
+    public void setResponsavel(String responsavel) {
+       this.responsavel = responsavel;
+    }
     public LocalDate getDataCriacao() {
         return dataCriacao;
     }
@@ -147,12 +148,6 @@ public class Tarefa {
     }
     public void setCategorias(Set<Categoria> categorias) {
         this.categorias = categorias;
-    }
-    public User getUsuario() {
-        return usuario;
-    }
-    public void setUsuario(User usuario) {
-        this.usuario = usuario;
     }
     public List<Comentario> getComentarios() {
         return comentarios;
