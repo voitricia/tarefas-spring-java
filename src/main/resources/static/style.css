@@ -137,11 +137,11 @@ textarea {
 
 /* Botão Verde (Sucesso) */
 .btn-success {
-    background-color: #1e8e3e; /* Verde Google */
+    background-color: #13fa55; 
     color: white;
 }
 .btn-success:hover {
-    background-color: #187332;
+    background-color: #13fa55;
     color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -414,14 +414,6 @@ textarea {
 }
 /* =================== ESTILOS PARA SEÇÃO DE COMENTÁRIOS =================== */
 
-.comentarios-section {
-    /* Faz a seção ocupar toda a largura do card da tarefa */
-    grid-column: 1 / -1; 
-    margin-top: 1.5rem;
-    padding-top: 1.2rem;
-    border-top: 1px solid #e8eaed;
-}
-
 .comentario-item {
     background-color: #f8f9fa;
     padding: 0.8rem 1rem;
@@ -458,4 +450,36 @@ textarea {
 .comentario-form button {
     height: 40px;
     white-space: nowrap; /* Evita que o texto do botão quebre linha */
+}
+
+.comentarios-actions {
+    display: flex;
+    gap: 0.75rem; /* Adiciona um espaço entre os botões */
+}
+/* =================== ESTILOS PARA O CABEÇALHO COM LOGOUT =================== */
+
+.header-actions-wrapper {
+    display: flex;
+    flex-direction: column; /* Organiza os itens em coluna (um em cima do outro) */
+    align-items: flex-end;  /* Alinha tudo à direita */
+}
+
+.logout-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem; /* Espaço entre o link de sair e os botões abaixo */
+    color: #d93025; /* Cor vermelha para indicar ação de saída */
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.logout-link:hover {
+    color: #a50e0e; /* Vermelho mais escuro no hover */
+    text-decoration: underline;
+}
+
+.logout-link i {
+    font-size: 1.2rem;
 }

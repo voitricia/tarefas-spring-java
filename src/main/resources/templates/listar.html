@@ -14,14 +14,20 @@
     <div class="tarefas">
 
         <div class="tarefas-card-header">
-            <h1>TAREFAS CADASTRADAS</h1>
-            <div class="header-actions">
-                <a th:href="@{/templates/categorias/listar}" class="btn btn-secondary">
-                    <i class="bi bi-tags"></i> Gerenciar Categorias
+            <h1>TAREFAS</h1>
+
+            <div class="header-actions-wrapper">
+                <a th:href="@{/logout}" class="logout-link">
+                    <i class="bi bi-box-arrow-right"></i>
                 </a>
-                <a th:href="@{/templates/tarefa}" class="btn btn-primary">
-                    <i class="bi bi-plus-lg"></i> Nova Tarefa
-                </a>
+                <div class="header-actions">
+                    <a th:href="@{/templates/categorias/listar}" class="btn btn-outline-secondary">
+                        <i class="bi bi-tags"></i> Gerenciar Categorias
+                    </a>
+                    <a th:href="@{/templates/tarefa}" class="btn btn-outline-primary">
+                        <i class="bi bi-plus-lg"></i> Nova Tarefa
+                    </a>
+                </div>
             </div>
         </div>
 
@@ -63,10 +69,10 @@
                 </div>
 
                 <div class="filter-actions">
-                    <a th:href="@{/templates/listar}" class="btn btn-secondary">
+                    <a th:href="@{/templates/listar}" class="btn btn-outline-secondary">
                         <i class="bi bi-x-circle"></i> Limpar Filtros
                     </a>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-outline-primary">
                         <i class="bi bi-search"></i> Pesquisar
                     </button>
                 </div>
@@ -104,22 +110,44 @@
                     </form>
                 </div>
                 <div class="comentarios-section">
-                    <div class="comentarios-list" th:if="${!tarefa.comentarios.isEmpty()}">
-                        <div class="comentario-item" th:each="comentario : ${tarefa.comentarios}">
-                            <p class="comentario-texto" th:text="${comentario.texto}"></p>
-                            <small class="comentario-meta">
-                                <strong th:text="${comentario.usuario.username}"></strong> 
-                                <span th:text="${#temporals.format(comentario.dataCriacao, 'dd/MM/yyyy HH:mm')}"></span>
-                            </small>
+                    <div class="comentarios-actions">
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse"
+                            th:attr="data-bs-target='#listaComentarios-' + ${tarefa.id}" aria-expanded="false">
+                            <i class="bi bi-chat-dots"></i>
+                            Ver Comentários (<span th:text="${#lists.size(tarefa.comentarios)}">0</span>)
+                        </button>
+
+                        <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="collapse"
+                            th:attr="data-bs-target='#formComentario-' + ${tarefa.id}" aria-expanded="false">
+                            <i class="bi bi-plus-circle"></i>
+                            Adicionar Comentário
+                        </button>
+                    </div>
+
+                    <div class="collapse mt-3" th:id="'listaComentarios-' + ${tarefa.id}">
+                        <div class="comentarios-list" th:if="${!tarefa.comentarios.isEmpty()}">
+                            <div class="comentario-item" th:each="comentario : ${tarefa.comentarios}">
+                                <p class="comentario-texto" th:text="${comentario.texto}"></p>
+                                <small class="comentario-meta">
+                                    Por <strong th:text="${comentario.usuario.username}"></strong> em
+                                    <span
+                                        th:text="${#temporals.format(comentario.dataCriacao, 'dd/MM/yyyy HH:mm')}"></span>
+                                </small>
+                            </div>
+                        </div>
+                        <div class="text-muted p-2" th:if="${tarefa.comentarios.isEmpty()}">
+                            Nenhum comentário ainda.
                         </div>
                     </div>
 
-                    <form th:action="@{/templates/tarefas/{tarefaId}/comentarios(tarefaId=${tarefa.id})}" method="post"
-                        class="comentario-form">
-                        <textarea name="texto" placeholder="Adicionar um comentário sobre o andamento..."
-                            required></textarea>
-                        <button type="submit" class="btn btn-primary btn-sm">Comentar</button>
-                    </form>
+                    <div class="collapse mt-3" th:id="'formComentario-' + ${tarefa.id}">
+                        <form th:action="@{/templates/tarefas/{tarefaId}/comentarios(tarefaId=${tarefa.id})}"
+                            method="post" class="comentario-form">
+                            <textarea name="texto" placeholder="Adicionar um comentário sobre o andamento..."
+                                required></textarea>
+                            <button type="submit" class="btn btn-primary btn-sm">Comentar</button>
+                        </form>
+                    </div>
                 </div>
             </li>
         </ul>

@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import org.springframework.web.bind.annotation.PostMapping;
@@ -34,9 +35,9 @@ public class AuthService {
 
     @PostMapping("/login")
     public String doLogin(@RequestParam String username,
-                          @RequestParam String password,
-                          @RequestParam(name = "redirect", required = false) String redirect, Model model,
-                          HttpServletResponse response) {
+            @RequestParam String password,
+            @RequestParam(name = "redirect", required = false) String redirect, Model model,
+            HttpServletResponse response) {
 
         Optional<String> token = authRepository.login(username, password);
         if (token.isEmpty()) {
@@ -68,8 +69,8 @@ public class AuthService {
 
     @PostMapping("/logout")
     public String logout(@RequestParam(name = "redirect", required = false) String redirect,
-                         @RequestParam(name = "token", required = false) String tokenFromForm,
-                         HttpServletResponse response) {
+            @RequestParam(name = "token", required = false) String tokenFromForm,
+            HttpServletResponse response) {
 
         if (tokenFromForm != null && !tokenFromForm.isBlank()) {
             authRepository.logout(tokenFromForm);
@@ -87,9 +88,9 @@ public class AuthService {
 
     @PostMapping("/register")
     public String register(@RequestParam String username,
-                           @RequestParam String password,
-                           @RequestParam String confirmPassword,
-                           Model model) {
+            @RequestParam String password,
+            @RequestParam String confirmPassword,
+            Model model) {
         if (username == null || username.isBlank() || password == null || password.isBlank() || confirmPassword == null
                 || confirmPassword.isBlank()) {
             model.addAttribute("erro", "Todos os campos devem ser preenchidos");
@@ -108,6 +109,35 @@ public class AuthService {
             model.addAttribute("error", "Ocorreu um erro ao criar o usuario");
             return "cadastro";
         }
+    }
+
+    @GetMapping("/logout")
+    public String doLogout(HttpServletRequest request, HttpServletResponse response) {
+        // Pega o token do cookie
+        String token = null;
+        if (request.getCookies() != null) {
+            for (Cookie cookie : request.getCookies()) {
+                if ("AUTH_TOKEN".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        // Invalida o token no backend
+        if (token != null) {
+            authRepository.logout(token);
+        }
+
+        // Expira o cookie no navegador do usuário
+        Cookie cookie = new Cookie("AUTH_TOKEN", null);
+        cookie.setHttpOnly(true);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        // Redireciona para a página de login
+        return "redirect:/login";
     }
 
 }

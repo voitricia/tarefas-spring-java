@@ -14,7 +14,7 @@
 <body>
 
     <form th:action="@{/templates/salvar}" th:object="${tarefa}" method="post" class="form-container">
-        
+
         <h1 th:if="${tarefa.id == null}">Nova Tarefa</h1>
         <h1 th:if="${tarefa.id != null}">Editar Tarefa</h1>
 
@@ -27,7 +27,8 @@
 
         <div>
             <label for="descricao">Descrição</label>
-            <textarea id="descricao" th:field="*{descricao}" placeholder="Ex: Revisar os capítulos 3 e 4 do livro"></textarea>
+            <textarea id="descricao" th:field="*{descricao}"
+                placeholder="Ex: Revisar os capítulos 3 e 4 do livro"></textarea>
         </div>
 
         <div>
@@ -52,17 +53,19 @@
                 <option value="CANCELADA">Cancelada</option>
             </select>
         </div>
-        
+
         <div>
             <label for="dataLimite">Data limite</label>
             <input id="dataLimite" type="date" th:field="*{dataLimite}">
         </div>
 
         <div class="form-buttons">
-            <a th:href="@{/templates/listar}" class="btn btn-secondary">Cancelar</a>
-            <button type="submit" class="btn btn-primary">Salvar Tarefa</button>
+            <a th:href="@{/templates/listar}" class="btn btn-outline-secondary">Cancelar</a>
+
+            <button type="submit" class="btn btn-outline-success">Salvar</button>
         </div>
     </form>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
