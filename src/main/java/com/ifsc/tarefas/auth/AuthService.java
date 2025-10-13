@@ -115,10 +115,10 @@ public class AuthService {
     public String doLogout(HttpServletRequest request, HttpServletResponse response) {
         // Pega o token do cookie
         String token = null;
-        if (request.getCookies() != null) {
-            for (Cookie cookie : request.getCookies()) {
-                if ("AUTH_TOKEN".equals(cookie.getName())) {
-                    token = cookie.getValue();
+        if (request.getCookies() != null) { //verifica se existem cookies
+            for (Cookie cookie : request.getCookies()) { //busca todos os cookies
+                if ("AUTH_TOKEN".equals(cookie.getName())) { //se o nome do cookie for igual a AUTH_TOKEN
+                    token = cookie.getValue(); //pega o valor do cookie
                     break;
                 }
             }
@@ -131,8 +131,8 @@ public class AuthService {
 
         // expira/remove o cookie no navegador do usuário
         Cookie cookie = new Cookie("AUTH_TOKEN", null); //cria novo cookie com valor nulo
-        cookie.setHttpOnly(true);
-        cookie.setPath("/");
+        cookie.setHttpOnly(true); //impede acesso via javascript
+        cookie.setPath("/"); //disponível em todo o site
         cookie.setMaxAge(0);//tempo de vida 0 para expirar o cookie
         response.addCookie(cookie);
 
