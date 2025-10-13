@@ -124,19 +124,18 @@ public class AuthService {
             }
         }
 
-        // Invalida/remove o token no backend
+        // invalida/remove o token no backend
         if (token != null) {
             authRepository.logout(token); 
         }
 
-        // Expira/remove o cookie no navegador do usuário
-        Cookie cookie = new Cookie("AUTH_TOKEN", null);
+        // expira/remove o cookie no navegador do usuário
+        Cookie cookie = new Cookie("AUTH_TOKEN", null); //cria novo cookie com valor nulo
         cookie.setHttpOnly(true);
         cookie.setPath("/");
-        cookie.setMaxAge(0);
+        cookie.setMaxAge(0);//tempo de vida 0 para expirar o cookie
         response.addCookie(cookie);
 
-        // Redireciona para a página de login
         return "redirect:/login";
     }
 
