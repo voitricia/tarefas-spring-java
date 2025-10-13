@@ -10,7 +10,7 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Comentario {
-
+    //cria a tela comentario no banco de dados
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -18,11 +18,11 @@ public class Comentario {
     private String texto;
     private LocalDateTime dataCriacao;
 
-    @ManyToOne
+    @ManyToOne //relacionamento muitos para um com a tarefa
     @JoinColumn(name = "tarefa_id", nullable = false)
     private Tarefa tarefa;
 
-    @ManyToOne
+    @ManyToOne//relacionamento muitos para um com o usuario
     @JoinColumn(name = "usuario_username", nullable = false)
     private User usuario;
 

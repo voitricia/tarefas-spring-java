@@ -111,7 +111,7 @@ public class AuthService {
         }
     }
 
-    @GetMapping("/logout")
+    @GetMapping("/logout") //api para logout 
     public String doLogout(HttpServletRequest request, HttpServletResponse response) {
         // Pega o token do cookie
         String token = null;
@@ -124,12 +124,12 @@ public class AuthService {
             }
         }
 
-        // Invalida o token no backend
+        // Invalida/remove o token no backend
         if (token != null) {
-            authRepository.logout(token);
+            authRepository.logout(token); 
         }
 
-        // Expira o cookie no navegador do usuário
+        // Expira/remove o cookie no navegador do usuário
         Cookie cookie = new Cookie("AUTH_TOKEN", null);
         cookie.setHttpOnly(true);
         cookie.setPath("/");

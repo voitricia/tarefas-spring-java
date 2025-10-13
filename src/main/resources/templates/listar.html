@@ -16,8 +16,8 @@
         <div class="tarefas-card-header">
             <h1>TAREFAS</h1>
 
-            <div class="header-actions-wrapper">
-                <a th:href="@{/logout}" class="logout-link">
+            <div class="header-actions-wrapper"> 
+                <a th:href="@{/logout}" class="logout-link"> 
                     <i class="bi bi-box-arrow-right"></i>
                 </a>
                 <div class="header-actions">
@@ -109,9 +109,10 @@
                         </button>
                     </form>
                 </div>
+                <!-- seção de comentários -->
                 <div class="comentarios-section">
                     <div class="comentarios-actions">
-                        <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse"
+                        <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse" 
                             th:attr="data-bs-target='#listaComentarios-' + ${tarefa.id}" aria-expanded="false">
                             <i class="bi bi-chat-dots"></i>
                             Ver Comentários (<span th:text="${#lists.size(tarefa.comentarios)}">0</span>)
@@ -123,8 +124,8 @@
                             Adicionar Comentário
                         </button>
                     </div>
-
-                    <div class="collapse mt-3" th:id="'listaComentarios-' + ${tarefa.id}">
+                    <!-- collapse: componente que cria efeito cascata da lista de comentários -->
+                    <div class="collapse mt-3" th:id="'listaComentarios-' + ${tarefa.id}"> <!-- comentários apenas da tarefa -->
                         <div class="comentarios-list" th:if="${!tarefa.comentarios.isEmpty()}">
                             <div class="comentario-item" th:each="comentario : ${tarefa.comentarios}">
                                 <p class="comentario-texto" th:text="${comentario.texto}"></p>
@@ -140,10 +141,10 @@
                         </div>
                     </div>
 
-                    <div class="collapse mt-3" th:id="'formComentario-' + ${tarefa.id}">
+                    <div class="collapse mt-3" th:id="'formComentario-' + ${tarefa.id}"> <!-- form para adicionar comentário -->
                         <form th:action="@{/templates/tarefas/{tarefaId}/comentarios(tarefaId=${tarefa.id})}"
                             method="post" class="comentario-form">
-                            <textarea name="texto" placeholder="Adicionar um comentário sobre o andamento..."
+                            <textarea name="texto" placeholder="Adicionar um comentário..."
                                 required></textarea>
                             <button type="submit" class="btn btn-primary btn-sm">Comentar</button>
                         </form>

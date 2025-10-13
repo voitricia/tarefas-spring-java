@@ -92,7 +92,10 @@ public class Tarefa {
 
 
     @OneToMany(mappedBy = "tarefa", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comentario> comentarios = new ArrayList<>();
+    // uma tarefa pode ter varios comentarios
+    // mapeado pelo atributo tarefa na classe comentario
+    private List<Comentario> comentarios = new ArrayList<>(); 
+    //conecta as duas classes
 
 
     public Status getStatus() {
